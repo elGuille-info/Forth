@@ -1,0 +1,1607 @@
+Los cambios en el programa
+===========================
+
+\ v1.274 (17-ene-2023 17.46)
+\   Uso el fichero util.forth con la definición de las palabras de uso general a usar.
+\   Debug1 y debu2 las pongo en util.forth.
+
+\ v1.273 (17-ene-2023 17.22)
+\   Cambio donde se usan estas palabras para indicar dónde guardar la respuesta.
+\   Defino CONTINUAR?, PREGUNTA-CHAR? y PREGUNTA? de forma genérica, 
+\       indicando la dirección donde se almacenará la respuesta.
+\       IMPORTANTE: LA RESPUESTA NO SE CONVIERTE EN MAYÚSCULAS.
+
+\ v1.272 (17-ene-2023 11.44)
+\   Defino '! para asignar una cadena a otra (una variable).
+\   Defino '-TRAILING y >' indicando una dirección de memoria y el máximo de caracteres 
+\       obtener esa dirección de memoria con los caracteres actuales.
+\   Defino >LIMPIAR para rellenar de espacios (BLANK) la dirección y longitud indicada.
+\   Defino >MAYUSCULAS para convertir en mayúsculas el contenido de la dirección y longitud indicada.
+
+\ v1.271 (16-ene-2023 21.50)
+\   Quito comentarios de cambio de nombres de las palabras y variables, etc.
+\   Quito definiciones y código que no se usan.
+\   Para ver lo que he quitado, comparar con la versión anterior ;-)
+
+\ v1.270 (16-ene-2023 20.52)
+\   En jugar-facil, jugar-dificil y jugar-auto le pongo el tipo de juego a quejugar.
+
+\ v1.269 (16-ene-2023 19.34)
+\   Comento los mensajes de debug.
+
+\ v1.268 (16-ene-2023 17.34)
+\   En nivel y dificultad si no se escribe nada delante 
+\       no mostrar que no el número indicado no es válido.
+\   Al indicar jugar <opcion> confirmar si se quiere cambiar la opción de juego.
+
+\ v1.267 (16-ene-2023 16.59)
+\   Añado a $comandos todas las opciones de $jugar
+\       En $comandos-text poner cadenas vacías para no mostrar el comando y la descripción.
+\   Ya se puede escribir 'jugar opcion' en dime / jugar en bucle.
+\   En comandos-mostrar no mostrar el comando si la descripción en una cadena vacía.
+
+\ v1.266 (16-ene-2023 16.41)
+\   Al final de pregunta? se había quedado una comparación que no se usa ahí.
+\   Hacer una copia de la pila cuando sea un comando después de ayuda-see
+
+\ v1.265 (16-ene-2023 16.03)
+\   Cambio los nombres de las constantes de dificultades para que no tengan el guión bajo.
+
+\ v1.264 (16-ene-2023 13.29)
+\   En reiniciar ya no se asigna una cadena vacía a quejugar, se asigna al cargar el fichero.
+\   En jugar-solo mostrar qué tipo de juego es.
+\   Cuando se llame a las opciones de jugar solo poner en quejugar el valor del tipo de juego
+\       para mostarlo desde jugar-solo.
+
+\ v1.263 (16-ene-2023 12.38)
+\   Muevo %comandos, etc a la parte de variables
+\   Muevo %ayudas, $ayudas, ayuda>s y ayuda-index a la parte de variables.
+\   Muevo %dificultades, etc. a la parte de variables.
+\   Muevo la definición de comprobarsee a la parte de las variables.
+\   En reiniciar asignar una cadena vacía a quejugar.
+\   Muevo las variables de quejugar, etc antes de las palabras.
+\   Quito debugs en ayuda-see.
+
+\ v1.262 (16-ene-2023 12.33)
+\   En DEBUG1 y DEBUG2 mostrar el texto indicado después de ">>> "
+
+\ v1.261 (16-ene-2023 12.06)
+\   Ajustando algunas cosas en jugar-bucle y jugar-cambiar.
+
+\ v1.260 (16-ene-2023 11.41)
+\   En jugar-bucle se usa el contenido de quejugar para mostrar cómo se está jugando.
+\   Quito codigo comentado que no se usa en jugar-bucle
+
+\ v1.259 (16-ene-2023 10.55)
+\   Algunos cambios cuando se escribe jugar en dime. Ya va bien, pero hay que "refinarlo".
+
+\ v1.258 (16-ene-2023 10.34)
+\   Todo esto después de desayunar... 10.37
+\   En JUGAR-BUCLE usar el valor de quejugar para indicar el tipo de juego.
+\   QUEJUGAR no tiene nada cuando se cambia de juego.
+\   Habría que asignar el tipo de juego y llamar a JUGAR-QUEJUGAR al cambiar de juego en vez del CASE.
+
+\ v1.257 (16-ene-2023 10.03)
+\   En SwiftForth carga el código. Y ocurre lo mismo que con gForth.
+\   En gForth funciona sin da el error de memoria, al escribir jugar y poner dificil en la pregunta,
+\       no hay nada en la pila después de UNTIL y muestra la ayuda de jugar.
+\   Probar de nuevo con el código de v1.254, 
+\       cambiando el código de JUGAR-BUCLE para no usar el LEAVE.
+\       Se ve que era eso: al salir con LEAVE desde un IF.
+
+\ v1.256 (16-ene-2023 09.19)
+\   No he hecho cambios con respecto a la v1.255, voy a probar otra cosa... 10.03
+\   Hacer cambios para ver si funciona, pero que no haya que poner el DEFER JUGAR-BUCLE
+\   Basado en v1.255/v1.253, no en v1.254
+
+\ v1.255 (16-ene-2023 09.10)
+\   Así si carga en SwiftForth.
+\       Pero no funciona al cambiar de juego y 
+\           tanto en gForth como en SwiftForth da el mismo resultado.
+\   Pongo el código de la versión 1.253 a ver si en SwiftFoth no da error al cargar.
+\   La diferencia principal es que no estaba esto (aparte de otras cosas)
+\       DEFER JUGAR-CAMBIAR     \ : JUGAR-CAMBIAR
+
+\ v1.254 (16-ene-2023 08.03)
+\   Intentando de otra forma, pero...
+\       En gForth da Invalid memory address al indicar jugar y el tipo de juego
+\       En SwifthForth da error al cargar el fichero de Unbalanced control structure en ; IS JUGAR-BUCLE
+
+\ v1.253 (15-ene-2023 21.31)
+\   Lo mismo no se tiene que llamar a JUGAR-CAMBIAR desde COMANDO-RUN.
+\       Seguir mañana... 15-ene-2023 22.00
+
+\ v1.252 (15-ene-2023 20.16)
+\   Medio funciona indicando JUGAR en DIME, pero... hay que hacerlo de otra forma.
+\   Defino CAMBIARJUEGO? para saber si se cambia de juego mientras se juega.
+\   Defino PREGUNTA-CHAR? para usar el código anterior.
+\   Redefino PREGUNTA? para que devuelva la respuesta en QUEAYUDA.
+\       Hasta ahora se indicaba el carácter a tener en cuenta y
+\           devolvía true o false según s escribiera esa letra o no.
+\   Defino JUGAR-CAMBIAR para mostrar las opciones a elegir si se escribe JUGAR en DIME.
+\   En DIME poder indicar jugar y mostrar las opciones de jugar.
+\   Mostrará las opciones y se abandonará el juego actual y empezará con el elegido.
+
+\ v1.251 (15-ene-2023 10.28)
+\   En DIME no se hacía esta asignación y siempre era false:
+\       TRUE COMPROBARSEE !
+\   Si AYUDA-GENERAL? recibe un parámetro se usará 
+\       false si viene de ayuda-see u otro si viene de ayuda,
+\       mostrando adecuadamente lo que se ha escrito,
+\       si no tiene parámetro no mostrar lo que se ha escrito
+\   Comento las definiciones de STR>INT y STR>NUM?
+\   En DIFICULTAD y NIVEL avisar si el número indicado no es un número válido.
+\   En QUEAYUDA>N y QUENUMEROS>N uso to?u para comprobar si es un número,
+\       no aceptándolo si tiene letras.
+\   No usar STR>INT, pero dejar la definición de NO_NUM
+
+\ v1.250 (15-ene-2023 09.39)
+\   Defino str?ud? y str?u? para devolver solo true o false según sea o no un número.
+\   Comento la definición de DI-QUEAYUDA
+
+\ v1.249 (15-ene-2023 08.49)
+\   Quito las definiciones anteriores que usaban s" en vez de $"
+
+\ v1.248 (15-ene-2023 08.32)
+\   Poner la ? en las opciones de JUGAR y mostrar la ayuda.
+
+\ v1.247 (14-ene-2023 21.00)
+\   En AYUDA-JUGAR se muestran las opciones de jugar (JUGAR-OPCIONES).
+\   Defino JUGAR-QUEJUGAR pra cuando termine de jugar usar la misma opción.
+
+\ v1.246 (14-ene-2023 17.45)
+\   Ya funciona bien con las opciones de JUGAR.
+\       Falta poner en AYUDA-JUGAR que hay esas opciones.
+\   Las palabras definidas son: 
+\       JUGAR ahora comprueba lo escrito.
+\       JUGAR-BUCLE (antes era JUGAR), JUGAR-FACIL, JUGAR-DIFICIL y JUGAR-AUTO
+\   Para los comandos de juego, etc:
+\       VARIABLE QUEJUGAR, 'QUEJUGAR, QUEJUGAR-LEN, QUEJUGAR>MAYUSCULAS, QUEJUGAR-LIMPIAR
+\       QUEJUGAR!, QUEJUGAR., 7 CONSTANT %JUGAR, CREATE $JUGAR, CREATE $JUGARINFO,
+\       JUGAR>S, JUGAR-LEN, JUGARINFO>S, JUGAR-MOSTRAR-OPCIONES, JUGAR-OPCIONES y JUGAR-INDEX
+\   Usar estas opciones:
+\   Poder escribir jugar solo o jugar xxx para los distintos tipos de juegos.
+\       Si solo se escribe jugar, se sigue como ahora.
+\       Las opciones de JUGAR serían:
+\           <nada>, interactivo, solo, SOLO AUTO, SOLO FACIL, SOLO DIFICIL
+\       Incluso se puede poner con niveles (como en jugar solo):
+\           Jugar facil, jugar dificil, jugar auto
+\   Defino JUGAR-BUCLE que es lo que hasta ahora hace JUGAR.
+\       Para así poder definir JUGAR xxx y si solo se escribe JUGAR se llama a JUGAR-BUCLE.
+
+\ v1.245 (14-ene-2023 17.09)
+\   Defino ayuda en las ayudas para poder escribir ayuda ayuda
+\       Si se escribe ayuda ayuda muestra la ayuda-general
+\       En DIME si se escribe ayuda, muestra la ayuda mientras juega (AYUDA-DIME),
+\           si se escribe ayuda ayuda se muestra ayuda-general.
+\   Defino D! y N! para la ayuda de DIFICULTAD y NIVEL:
+\       ayuda d! y ayuda n!
+
+\ v1.244 (14-ene-2023 16.33)
+\   Defino ES-GFORTH? y ESGFORTH? para saber si se está usando gForth.
+
+\ v1.243 (14-ene-2023 13.42)
+\   Tanto en SwiftForth como en gForth se puede comprobar así:
+\       s" gforth" environment?
+\       Si no existe, ambos devuelven 0 (false)
+\       En gForth, si existe devuelve addr len -1
+\       En SwiftForth no existe esa palabra, por tanto devolverá 0.
+\   Definir variable para saber si es gForth.
+
+\ v1.242 (14-ene-2023 13.35)
+\   En SwiftForth después de preguntar poner un espacio.
+
+\ v1.241 (14-ene-2023 12.28)
+\   Los comentarios de create $ para que funcione en SwiftForth y gForth.
+\   Quito algunos comentarios de DEBUG.
+\   Termino de cambiar las definiciones de CREATE $<loquesea> para usar $" en vez de s"
+\       También las palabras que acceden al contenido.
+
+\ v1.240 (14-ene-2023 09.28)
+\   De todas formas, no usar STRING2 para definir las variables, 
+\       usar VARIABLE <nombre> <tamaño> ALLOT en vez de <tamaño> STRING2 <nombre>
+\   Defino STRING2 ya que la definición de string de SwiftForth es diferente a la aquí definida.
+\   Volver a definir $" y definir los arrays, etc con $" en vez de s"
+
+\ v1.239 (14-ene-2023 08.59)
+\   Quito la definición de DIFICULTADDEPTH usada para ver si fallaba en DIFICULTAD-INDEX.
+\   Defino clearstacks si no está definido.
+\   Ya funciona en SwiftForth (con adivina-v1.191.forth) 
+\       arreglando el bug en $DIFICULTAD para mostrar el nombre de la dificultad.
+\   Redefino DIFICULTAD>N para que use ese array y quito los valores de $DIFICULTADES
+\   Defino NDIFICULTADES, un array con los números de intento de las dificultades.
+\   En SwiftForth siguen fallando (en adivina-v1.191.forth)
+\       después de definir NDIFICULTADES y definir $DIFICULTADES con $" 
+
+\ v1.238 (13-ene-2023 22.18)
+\   La solución parece ser esta:
+\       No usar los arrays de cadenas con s", usar $"
+\       Definir los números de las dificultades aparte de $DIFICULTADES
+\   En SwiftForth funciona usando S"
+\       El código de adivina-v1.191.forth funciona
+\       Salvo que CREATE $DIFICULTADES está definida con s" 
+
+\ v1.237 (13-ene-2023 20.43)
+\   Así si carga en SwiftForth. A ver si funciona.
+\       Falla al mostrar los valores de las dificultades.
+\       Parece que también en COMPARE de DIFICULTAD>S
+\       Falla al averiguar la longitud de los comandos, etc. definidos con s" ..." 2,
+\   En SwiftForth da error al definir 'QUEAYUDA, dice que QUEAYUDA no está definido.
+\       Defino las variables que estaban definidas con STRING como VARIABLE <nombre> <tamaño> ALLOT
+
+\ v1.236 (13-ene-2023 18.48)
+\   Pongo comprobación si STRING está definida.
+\   Probar en SwiftForth si carga el código.
+\       Tiene un follón para definri see?
+\       En gForth tiene sentido porque lanza una excepción, pero en SwiftForth no lanza excepción.
+
+\ v1.235 (13-ene-2023 17.17)
+\   Pongo comprobación si NOT está definida.
+\   Cambio [IFDEF] por [DEFINED] ... [IF], [IFUNDEF] por [UNDEFINED] ... [IF], [ENDIF] por [THEN]
+\   Por hacer: En ayuda?ayuda dividir queayuda por espacio ...
+\   En ayuda?ayuda dividir queayuda por espacio 
+\       para tener en quenumeros y queletras y poder comprobar si queletras está en blanco,
+\       también sirve para comprobar si quenumeros tiene la palabra ayuda.
+\       Esto servirá para saber si se ha escrito ayuda <> o ayuda <loquesea>,
+\       si es el primer caso, mostrar la ayuda general que corresponda,
+\       si es el segundo caso, buscar <loquesea> en las ayudas,
+\           dividiendo queletras en 2, por espacio o guión.
+\   Defino between si no está definido (es un alias a within).
+\   Defino toupper si no está definido, en gForth si está definido, pero no en SwiftForth.
+
+\ v1.234 (13-ene-2023 10.30)
+\   Quito la ayuda de prueba HOLA.
+\   Quito algunos comentarios y código ya no usado
+\   Quito los comentarios de uso de 2VARIABLE AYUDATMP
+\   Si una ayuda está definida en $AYUDAS pero no se contempla en el CASE, mostrar aviso.
+\   Quito la definición de AYUDA-BUSCAR.
+\   Por hacer: En ayuda?ayuda dividir queayuda por espacio ...
+
+\ v1.233 (13-ene-2023 09.09)
+\   Corregido BUGS\GAZAPO al quitar AYUDATMP
+\   Probar si en realidad se necesita AYUDATMP, quitada porque no hace falta.
+\   Cambio el nombre de 'AYUDATMP por AYUDATMP,
+\       ya que al ser una variable, aunque sea un puntero, que no empiece por '
+\   Por hacer: En ayuda?ayuda dividir queayuda por espacio ...
+
+\ v1.232 (13-ene-2023 08.39)
+\   Si en DIME se escribe una palabra sin empezar con ayuda, 
+\       que no es unn comando, pero sí una ayuda, se muestra esa ayuda.
+\       Incluso si se escribe con guión delante, ej. solo o -solo
+\   Defino AYUDA-GENERAL? para saber qué ayuda mostrar.
+\   Por hacer: En ayuda?ayuda dividir queayuda por espacio ...
+
+\ v1.231 (13-ene-2023 08.31)
+\   Quito la definicón de test-char
+\   Comentar los DEBUG de buscar ayudas, etc.
+
+\ v1.230 (12-ene-2023 21.12)
+\   Hay que definir el array con las palabras permitidas, 22.08
+\       INTERACTIVO, SOLO, SOLO AUTO, SOLO FACIL, SOLO DIFICIL
+\   Defino palabras para lo que se escriba en jugar:
+\       QUEJUGAR, 'QUEJUGAR, QUEJUGAR-LEN, QUEJUGAR>MAYUSCULAS, QUEJUGAR-LIMPIAR, QUEJUGAR! y QUEJUGAR.
+
+\ v1.229 (12-ene-2023 21.09)
+\   Cambio los textos para ayuda-jugando, etc.
+
+\ v1.228 (12-ene-2023 20.19)
+\   Modifico la ayuda de jugar solo, un poco más explicativa.
+\   Añado SOLO y JUGAR SOLO a la ayuda
+\   Defino AYUDA-SOLO para poner solo en las ayudas
+\   Poder escribir jugar solo o jugar xxx para los distintos tipos de juegos.
+\       Si solo se escribe jugar, se sigue como ahora.
+
+\ v1.227 (12-ene-2023 19.54)
+\   Ya funciona desde DIME al escribir ayuda ayuda xxx
+\   Defino QUEAYUDATMP, 'QUEAYUDATMP y QUEAYUDATMP! para usar con QUELETRAS-SPLIT
+
+\ v1.226 (12-ene-2023 19.39)
+\   En dime ya va bien cuando no encuentra la ayuda.
+\   Cuando es ayuda ayuda xxx muestra que no existe la ayuda.
+\       Habrá que comprobar en ayuda?ayuda la segunda parte de queletras 
+\           (creo que ya se hace)
+
+\ v1.225 (12-ene-2023 19.25)
+\   En dime, si no encuentra la ayuda, ya muestra la general.
+\   Aunque sigue fallando con ayuda ayuda xxx
+
+\ v1.224 (12-ene-2023 16.31)
+\   En línea de comandos va bien todo.
+\   Es decir, falla si no encuentra la ayuda, ej. ayuda noexiste
+\   En DIME falla (no muestra nada) si se escribe ayuda ayuda xxx
+\       funciona con ayuda ayuda-xxx
+\   Quito algunas, a ver si va bien, 17.25
+\   Comprobar si se pueden quitar de $AYUDAS las indicadas como AYUDA XXX.
+
+\ v1.223 (12-ene-2023 15.07)
+\   Redefino QUENUMEROS! y QUELETRAS! para que no se asigne más de MAX_AYUDA caracteres.
+\   Defino ?LIMPIAR para limpiar una cadena n caracteres y hasta un méximo.
+\   Redefino QUEAYUDA! para que no se asigne más de MAX_AYUDA caracteres.
+\   Desde ayuda-see ya no hace falta llamar a ayuda-buscar
+
+\ v1.222 (12-ene-2023 14.53)
+\   Comprobar ayuda desde DIME
+\   Parece que va todo bien, incluso con ayuda -xxx
+\       pero con ayuda ayuda-nivel o ayuda -nivel, algo pasa,
+\       ya que con el resto funciona: ayuda ayuda-pista, etc.
+
+\ v1.221 (12-ene-2023 14.29)
+\   El línea de comandos ya va bien, incluso escribiendo ayuda -xxx, 14.53
+\   Desde la línea de comandos, funcionan todas las ayudas, 14.44
+\       pero si se escribe una ayuda que no existe, no muestra nada.
+\   En AYUDA-BUSCAR se llama a AYUDA?AYUDA
+\   AYUDA-BUSCAR si no recibe parámetro se usa false
+\   Ver si puedo usar solo ayuda-buscar o ayuda?ayuda
+
+\ v1.220 (12-ene-2023 12.01)
+\   En DIME al escribir ayuda nivel muestra dos veces la ayuda de nivel y 
+\       se quedan 2 números en el stack
+\           el 2 de nivel y el 9 de ayuda nivel
+\       Sin embargo, con ayuda pista, lo hace bien.
+
+\ v1.219 (12-ene-2023 11.51)
+\   Según parece, están contempladas todas las posibilidades de ayuda ???
+\       tanto en línea de comandos como en dime.
+\   Comprobar en línea de comandos las posibilidades de ayuda, 11.57
+\       ayuda xxx, ayuda-xxx, ayuda ayuda xxx, ayuda ayuda-xxx,
+\       ayuda no-existe y ayuda ayuda no-existe y ayuda ayuda-no, ok
+
+\ v1.218 (12-ene-2023 10.51)
+\   En DIME funcionan las 5 combinaciones de ayuda, 11.51
+\       ayuda pista, ayuda-pista, ayuda ayuda pista, ayuda ayuda-pista y ayuda no-ex-una-ayuda
+\   Escribiendo en la línea de comandos ayuda pista, no lo encuentra
+\       y muestra 2 veces la ayuda general
+\   Modifico el código de ayuda-see para que use ayuda?ayuda.
+\   Defino QUELETRAS-SPLIT
+\   Pongo el código en AYUDA?AYUDA
+\   Muevo S?CHAR a la parte de las utilidades.
+
+\ v1.217 (12-ene-2023 08.27)
+\   Defino S?CHAR y QUEAYUDA?C para saber si la cadena tiene el carácter indicado.
+\       Devuelve la posición en base 0 o -1, 10.50 
+\   Defino AYUDA?AYUDA para comprobar si se escribe ayuda-xxx o ayuda xxx
+\   Comprobado el funcionamiento en DIME de NIVEL y DIFICULTAD, 09.08
+\   Cambio DEBUG por DEBUG1
+
+\ v1.216 (11-ene-2023 21.49)
+\   Para mañana: comprobar si toda la búsqueda de las ayudas se pueden hacer en un mismo sitio
+\   Quito los bookmarks de las líneas con DEBUG o DEBUG2 y 
+\       quito otro comentarios directos, que estaban comentados.
+
+\ v1.215 (11-ene-2023 21.21)
+\   Los cr se ponen en DEBUG y DEBUG2 no al llamar a estas palabras.
+\   Si se asigna false, el problema es que se imprimen los cr
+\   Defino ESDEBUG? para saber si se quieren mostrar los mensajes de depuración.
+\       DEBUG? ya está definido en gForth.
+
+\ v1.214 (11-ene-2023 21.00)
+\   En AYUDA-SEE quito el código que ya no se usa al no pasar un parámetro.
+
+\ v1.213 (11-ene-2023 20.22)
+\   Quito el parámetro de AYUDA-SEE, ya que solo se llama desde DIME.
+\   En AYUDA-BUSCAR debe recibir un parámetro flag para indicar si se llama desde 
+\       ayuda (false) o dime (true) y se asignará a COMPROBARSEE
+\   AYUDA-SEE ya solo se llama desde DIME, quitar el parámetro flag y no asignar a COMPROBARSEE
+\   En DIME si se vuelve a llamar a DIME, pongo EXIT antes del THEN
+
+\ v1.212 (11-ene-2023 20.09)
+\   Si se escribe desde la línea de comandos, ayuda funciona con las 3 opciones
+\       falla si se escribe algo no-existe, solucionado, 20.20
+
+\ v1.211 (11-ene-2023 16.54)
+\   Si se escribe ayuda desde la línea de comandos, funcionan todas las opciones de ayuda.
+\       ayuda ayuda xxx, ayuda ayuda-xxx, ayuda xxx y ayuda no-existe
+\       Si se escribe ayuda ayuda-xxx se queda -1 en la pila
+\   Defino AYUDA-BUSCAR para comprobar si se ha escrito una ayuda.
+\   En DIME si se pulsa intro y no se indica nada, avisa y vuelva a preguntar.
+
+\ v1.210 (11-ene-2023 11.56)
+\   Falla, hasta lo que funcionaba: ayuda pista... revisar bien...
+\       En DIME y línea de comandos, funciona ayuda ayuda-pista, pero falla ayuda ayuda pista
+\   En DIME al escribir ayuda ayuda-pista, se convierte en ayuda ayuda pista.
+\   En línea comandos al escribir ayuda ayuda-pista 
+\       dice que ayuda-pista no es un comando ni una ayuda,
+\       en ayuda-see, antes del primer IF, el debug muestra: 
+\           en ayuda-see QUEAYUDA: 'AYUDA-PISTA' <1> 0
+\       de forma que entra en el else que lo manda a buscar la ayuda, o eso dice:
+\           Esto buscará tanto ayuda xxx como xxx
+\   Defino DEBUG2 para indicar 2 cadenas a mostrar.
+\   Pongo en $AYUDAS: AYUDA INTERACTIVO
+\       Desde línea de comando funciona con:
+\           ayuda interactivo, ayuda ayuda interactivo y ayuda ayuda-interactivo.
+\       Dede DIME solo funciona si se escribe interactivo o ayuda interactivo.
+\   Desde DIME al escribir ayuda ayuda general dice que no existe.
+\   Pero si se escribe ayuda ayuda general, desde la línea de comandos:
+\       Primero muestra la ayuda general y después dice:
+\       'AYUDA GENERAL' no es un comando ni una ayuda. y vuelve a mostrar esa ayuda, 
+\           porque es la predeterminada.
+\   Cuando se escribe ayuda ayuda pista
+\       Desde línea comandos lo muestra correctamente.
+\       Desde DIME dice que: 'AYUDA AYUDA PISTA' no es un comando ni una ayuda.
+\   Cuando se escribe ayuda xxx muestra correctamente esa ayuda desde los dos sitios.
+
+\ v1.209 (11-ene-2023 11.10)
+\   Al escribir ayuda-pista, funciona de las dos formas.
+\   Al escribir ayuda pista, funciona de las dos formas.
+\   De esta forma, al escribir ayuda ayuda-pista, no lo encuenta:
+\       Desde línea de comandos dice: 'AYUDA-PISTA' no es un comando ni una ayuda.
+\       Desde DIME dice: 'AYUDA AYUDA PISTA' no es un comando ni una ayuda.
+\   Vuelvo a poner en $AYUDAS desde el 7 al 13 sin el guión:
+\       AYUDA GENERAL ... AYUDA FORTH
+\   Desde DIME también falla cuando se escribe ayuda pista.
+\       Desde la línea de comandos, funciona si se escribe ayuda pista.
+\   Falla cuando se escribe desde DIME.
+\   Esto funciona si se escribe directamente desde la línea de comandos:
+\       ayuda ayuda-pista
+\   En $AYUDAS cambiar los ayuda XXX por ayuda-xxx.
+\       De esta forma se podrá escribir como ayuda jugar o ayuda ayuda-jugar,
+\       ya que en las instrucciones se indica que se puede escribir ayuda-xxx.
+\       Y eso estaba pensado cuando se jugaba en modo interactivo, no con dime.
+\   Quito de $AYUDAS los que empezaban por ayuda:
+\       AYUDA INTERACTIVO, AYUDA JUGAR INTERACTIVO o AYUDA JUGANDO
+\       para que estén solo las palabras a escribir después de ayuda o con los guiones.
+\       *** En $AYUDAS no se debe empezar por AYUDA ***
+\   Añadir ayudas para JUGAR-INTERACTIVO, ahora se puede usar con ayuda jugar interactivo.
+
+\ v1.208 (11-ene-2023 10.02)
+\   En JUGAR si se pulsa intro y no se indica nada, se muestra la ayuda.
+\   Definir la variable DESDEJUGAR para cuando se llama desde JUGAR.
+\   Al finalizar jugar-solo si no adivina el número, muestro INSTRUCCIONES-MOSTRAR.
+\   Ese mensaje se muestra desde INSTRUCCIONES-MOSTRAR,
+\       se llama desde MOSTRAR-CORRECTO, cuando no quedan intentos en ADIVINA, en RESUELVE,
+\       y al finalizar jugar-solo si no lo adivina.
+\   Al adivinar el número o al resolver, no mostrar la ayuda de "Para jugar de nuevo escribe JUGAR..."
+\       ya que al estar en bucle, es mejor mostrarlo cuando se termine.
+\       Al menos si se está jugando desde JUGAR.
+
+\ v1.207 (11-ene-2023 09.57)
+\   Comento los DEBUG y los debug en QUEAYUDA-UNIR.
+
+\ v1.206 (11-ene-2023 09.35)
+\   Funciona bien con los 3 definidas con: MAX_AYUDA STRING ...variable...
+\   Probar a usar STRING para definir QUEAYUDA, QUELETRAS y QUENUMEROS.
+\       La definción de string es:
+\           : STRING CREATE CHARS ALLOT ;
+\   Ahora está definida como: VARIABLE QUEAYUDA MAX_AYUDA ALLOT
+\   También funciona como: CREATE QUEAYUDA MAX_AYUDA CHARS ALLOT
+\   Incluso con: CREATE QUEAYUDA MAX_AYUDA CELLS ALLOT
+
+\ v1.205 (11-ene-2023 08.58)
+\   El fallo era porque ponía un ! al final de:
+\       s"  " drop c@  QUEAYUDAPOS @ c! QUEAYUDAPOS-INC
+\       Estaba así:
+\       s"  " drop c@  QUEAYUDAPOS @ c! QUEAYUDAPOS-INC !
+\   Fallaba al usar QUEAYUDA-UNIR con QUEAYUDAPOS-INC.
+\   Al escribir "ayuda pista" falló en v1.195
+\       Aunque funciona directamente, falla en jugar o dime.
+\       En v1.194 que es cuando cambié los $" por S" sí funcionaba
+
+\ v1.204 (10-ene-2023 21.18)
+\   Falla al unir cadenas, pensaba que era porque usaba otras formas de crear las variables
+\       QUEAYUDA, QUENUMEROS y QUELETRAS
+\   Probar queayuda con create chars allot, string
+\   Defino STRING
+
+\ v1.203 (10-ene-2023 20.21)
+\   En JUGAR, cuando finalice preguntar si quiere jugar de nuevo.
+
+\ v1.202 (10-ene-2023 20.05)
+\   Defino PREGUNTA?, CONTINUAR? ahora usar PREGUNTA?
+
+\ v1.201 (10-ene-2023 19.45)
+\   Seguir con los cambios de nombres
+\       $AYUDA por AYUDA>S, $COMANDO por COMANDO>S, $COMANDO-TEXT por COMANDO-TEXT>S
+
+\ v1.200 (10-ene-2023 18.49)
+\   Quito la definición de DIFICULTAD-PRINT, LAS-DIFICULTADES-NOMBRES
+\   Seguir con los cambios de nombres
+\       DIFICULTAD-$ por DIFICULTAD., $DIFICULTAD por DIFICULTAD>S
+\       QUENUMEROS-TONUMBER por QUENUMEROS>N, DIFICULTAD-N por DIFICULTAD>N
+\       QUENUMEROS-LENGTH por QUENUMEROS-LEN, QUELETRAS-LENGTH por QUELETRAS-LEN
+\       *QUENUMEROS por 'QUENUMEROS, *QUELETRAS por 'QUELETRAS
+
+\ v1.199 (10-ene-2023 18.27)
+\   Cambiar las palabras del juego para que estén en español.
+\       TIENE-LETRAS? por LETRAS?
+\       QUEAYUDA-EMPIEZA-NUMERO por QUEAYUDA?1N, QUEAYUDA-TIENE-LETRAS por QUEAYUDA?LETRAS
+\       QUEAYUDA-LENGTH por QUEAYUDA-LEN, QUEAYUDA-TOUPPER por QUEAYUDA>MAYUSCULAS
+\       QUEAYUDA-TONUMBER por QUEAYUDA>N, *QUEAYUDA por 'QUEAYUDA
+\       QUEAYUDA-ISNUMBER por QUEAYUDA?N, QUEAYUDA-MOSTRAR por QUEAYUDA.
+
+\ v1.198 (10-ene-2023 17.20)
+\   Dejo STR>INT como está:
+\       admite cadenas que empiecen por un número aunque tengan letras,
+\       devuelve NO_NUM si no contiene números.
+\   Quito las definciones de STR>INT? y STR>INT2, ya que no se usan.
+\   Defino str>ud, str?ud, str>u y str?u como alias para toud, to?ud, tou y to?u
+
+\ v1.197 (10-ene-2023 08.52)
+\   Defino toud, to?ud, tou y to?u
+\       Las que tienen ? devolverán cero si tiene alguna letra.
+\   Haciendo pruebas para convertir cadenas en números
+\       teniendo en cuenta si la cadena tiene algún número.
+\   Defino see? que es como see, si la palabra no esta definida 
+\       muestra "no existe" en lugar de dar error, y si está definida muestra la palabra.
+
+\ v1.196 (10-ene-2023 08.14)
+\   Cambio TIENE-LETRAS por TIENE-LETRAS?
+\   BUG en TIENE-LETRAS
+\       fallaba si hay algo en la pila y no tiene letras
+
+\ v1.195 (09-ene-2023 22.46)
+\   Ya funciona bien al jugar solo
+\   En jugar-solo da stack underflow al terminar
+\   Cambio QUE.AYUDA por QUEAYUDA
+\   Cambio QUE.LETRAS por QUELETRAS
+\   Cambio QUE.NUMEROS a QUENUMEROS
+\   Cambio QUEAYUDA.POS a QUEAYUDAPOS
+\   Defino QUEAYUDAPOS-INC
+
+\ v1.194 (09-ene-2023 21.50)
+\   Quitar el código comentado de las palabras de otros:
+\       $" y las de $split
+
+\ v1.193 (09-ene-2023 21.32)
+\   Quito los comandos no usados de PLACE$, etc.
+\   Comentos los comandos no usados que puse cuando  $split.
+\   Quitar los DEBUG y comentarios de $" y la definición de $"
+
+\ v1.192 (09-ene-2023 21.04)
+\   Al mostrar los comandos disponibles, que estén encolumnados.
+\   Defino $COMANDO-TEXT y COMANDO-LEN
+\   Cambiar los arrays definidos con $" por S"
+\       Cambiado $AYUDAS, $COMANDOS y $COMANDOS-TEXT
+
+\ v1.191 (09-ene-2023 21.00)
+\   Pongo de nuevo ayuda como comando.
+
+\ v1.190 (09-ene-2023 20.27)
+\   Faltaba un DUP en la línea 1672 después de *QUEAYUDA COMANDO-RUN
+\   Comprobar dónde poner que se busque como palabras separadas cuando se indique ayuda-xxx
+
+\ v1.189 (09-ene-2023 19.33)
+\   Parece ser que es porque AYUDA está en los comandos.
+\       Lo quito de los comandos a ver...
+\   Si se escribe ayuda sin nada más, después falla al escribir ayuda lo-que-sea,
+\       lo trata como un número.
+\   En las ayudas, indicar siempre un valor si se muestra el título.
+
+\ v1.188 (09-ene-2023 18.27)
+\   Poder indicar ayuda-XXX. En realidad se buscará como ayuda xxx
+\   Defino QUEAYUDA-UNIR para unir quenumeros y queletras 
+\       separados con un espacio y guardarlo en queayuda.
+
+\ v1.187 (09-ene-2023 16.56)
+\   Defino AYUDA-OPCIONES para usar desde AYUDA-GENERAL y AYUDA-DIME.
+\   Al pedir ayuda en dime, mostrar las opciones de ayudas que hay.
+
+\ v1.186 (09-ene-2023 16.46)
+\   Poner N! como comando para DIME.
+
+\ v1.185 (09-ene-2023 12.02)
+\   En los niveles de deficultad, el rango hacerlo siempre de 1 a %DIFICULTADES,
+\       por si le cambio después los nombres.
+\   Arreglo NIVEL y DIFICULTAD para usar bien los valores.
+\   En nivel, que se tenga que indicar un valor o -1 para no asignar el nivel.
+\   Defino N! como alias de nivel.
+
+\ v1.184 (09-ene-2023 10.36)
+\   Defino DIGITO? usando WITHIN.
+\   Quito la definición de N-NEXT? solo se usaba en A-N?
+
+\ v1.183 (09-ene-2023 10.14)
+\   Ya muestra los niveles al cambiar de nivel.
+\   En reiniciar usar siempre un flag para mostrar o no los niveles.
+
+\ v1.182 (09-ene-2023 09.51)
+\   Defino la palabra DEBUG que reciba una cadena y la muestre.
+\   Al cambiar de nivel, si hay algo en la pila no se muestran los niveles
+\       ya que en reiniciar solo se muestra si no hay nada en la pila.
+\   Al indicar el nivel o dificultad, aunque sea el mismo nivel, 
+\       mostrar siempre la información de los niveles e intentos que quedan.
+\   Quitar el código no usado al cambiar el nivel o la dificultad.
+
+\ v1.181 (09-ene-2023 09.14)
+\   Tanto en nivel como en dificultad llamar a VER-NIVELES:
+\       el nivel con el rango del número a adivinar y el nivel de dificultad.
+\   En nivel se muestra también el nivel de dificultad.
+\   Al escribir nivel o dificultad, se cambie o no, mostrar los intentos que quedan.
+\       Ahora se llama a quedan-intentos nivel-mostrar, llamar a:
+\       cr dificultad-mostrar cr nivel-mostrar cr quedan-intentos
+
+\ v1.180 (09-ene-2023 09.01)
+\   Quito algunos comentarios de DEBUG.
+
+\ v1.179 (09-ene-2023 08.11)
+\   Hacer que funcione las opciones de ayuda jugando
+
+\ v1.178 (08-ene-2023 22.06)
+\   En DIME poder indicar Ayuda jugando.
+
+\ v1.177 (08-ene-2023 21.36)
+\   Cuando se cambie el nivel, mostrar los intentos, etc.
+\   Nada... dejarlo como estaba, que funcionaba, usando COMPROBARSEE.
+\   Probar a usar 2>R y 2R> en ayuda-see, 
+\       manejando los valores antes de llamar a las palabras que usen el return stack.
+
+\ v1.176 (08-ene-2023 21.01)
+\   Parece que ya va bien, 21.35
+\   Cuando no es ayuda ni comando es cuando falla porque 
+\       falta un flag para saber qué ayuda mostrar.
+\       Tengo que usar de nuevo COMPROBARSEE.
+\       Ya que no se puede usar >R porque R> se usa después de una palabra que usa el return stack.
+
+\ v1.175 (08-ene-2023 20.13)
+\   Parece que funciona al escribir ayuda lo que sea o ayuda o un comando.
+\       Cuando se escribe un comando, va bien.
+\       Cuando se escribe ayuda <que existe> la muestra y al terminar con 0 no da error.
+\       Cuando se escribe ayuda <que no existe> o algo que no exista, 
+\           muestra la ayuda general, pero...
+\           lo que se escriba después lo trata como un comando, ayuda, etc,
+\           y al salir, después de tener que indicar el 0 dos veces, da stack underflow.
+\           Esto es porque se ha perdido un valor de la pila
+\   Defino 2VARIABLE 'AYUDATMP para usar en ayuda-index, 20.22
+
+\ v1.174 (08-ene-2023 14.20)
+\   No complicarse la vida y usar una variable temporal... pero después... 15.20
+\   Falla el 2>R y 2R> de do...loop en AYUDA-INDEX ???
+\   Cuando se escribe ayuda loquesea y no se encuentra, creo que cambia la pila,
+\       ya que si después se escribe un número, u otra cosa, lo busca como comando o ayuda,
+\       y ahí se queda... dando stack underflow.
+
+\ v1.173 (08-ene-2023 14.04)
+\   Si al cambiar el nivel de dificultad responde no, llamar a dificultad-mostrar.
+\   Si se cambia el nivel de dificultad, mostrar los intentos que quedan.
+
+\ v1.172 (08-ene-2023 13.35)
+\   Al indicar d! o dificultad sin un valor, se cumple el if de que no es un número,
+\       La pila se queda como estaba, 14.03
+\   Si se ha escrito solo d! o dificultad, quita el valor de la pila.
+\   Revisar dificultad-case y quitar los DEBUG que no sean necesarios.
+
+\ v1.171 (08-ene-2023 13.20)
+\   En dificultad-case, parece que ya está bien:
+\       si es otro nivel y se responde s o n, no altera la pila, 13.34
+\       cuando es el mismo nivel, no altera la pila.
+
+\ v1.170 (08-ene-2023 12.35)
+\   Probando la pila en dificultad-case, 12.44
+\       Siempre entra con el valor del case (1 o 7),
+\       si no se indica un valor, ej. D!, sale con 1;
+\       si se indica el mismo valor, sale con el valor de dificultad;
+\       si se indica otra dificultad y en continuar? se pulsa
+\           S, sale con el valor del case y 1,
+\               el 1 es porque se llama a dificultad y se deja el 1 en la pila como número de opción
+\           N, sale con el valor del case y el nivel de dificultad que puso pero no se asigna.
+\   Tanto dificultad como d! en el case de comando-run usan dificultad-case,
+\       hay que probar si la pila se queda sin modificar.
+
+\ v1.169 (08-ene-2023 12.25)
+\   Defino DIFICULTAD-CASE para usarlo en el case de comando-run con los valores 1 y 7.
+\       1 es DIFICULTAD, 7 es D!
+
+\ v1.168 (08-ene-2023 11.53)
+\   Defino QUEAYUDA! para asignar un valor, por ejemplo s" Hola" QUEAYUDA!
+\   Redefino QUENUMEROS-LIMPIAR y QUELETRAS-LIMPIAR usando BLANK.
+\   Redefino QUEAYUDA-LIMPIAR usando BLANK.
+
+\ v1.167 (08-ene-2023 03.23)
+\   Quitar lo comentado de las pruebas o lo que ya no hace falta, 03.9
+\   Si surge una duda, ver las copias de las versiones anteriores.
+
+\ v1.166 (08-ene-2023 03.03)
+\   Parece que ya va bien
+\   Un vistacillo rápido al problema de "Hay que limpiar la pila al finalizar AYUDA-SEE"
+
+\ v1.165 (08-ene-2023 02.11)
+\   Falta arreglar lo de Hay que limpiar la pila al finalizar AYUDA-SEE
+\   Vuelvo a quitar la definición de COMPROBARSEE
+\       Tampoco uso en ayuda-see el return stack.
+
+\ v1.164 (07-ene-2023 21.56)
+\   La pongo de nuevo, que falla...
+\   Quitar la definición de COMPROBARSEE, solo se usa en AYUDA-SEE.
+\       Uso el return stack para manejar ese parámetro.
+
+\ v1.163 (07-ene-2023 21.48)
+\   En ayuda-see que siempre se indique algo en la pila.
+\       TRUE o FALSE según se llame desde AYUDA o DIME respectivamente, 21.54
+
+\ v1.162 (07-ene-2023 21.34)
+\   Quitar algunas de las comprobaciones de DEBUG.
+
+\ v1.161 (07-ene-2023 21.06)
+\   Comprobar porqué se queda algo en la pila en AYUDA-SEE,
+\       por ejemplo al escribir ayuda se queda un 6.
+\       Era porque en COMANDO-RUN, en el case de ayuda, ponía un 6 al final.
+
+\ v1.160 (07-ene-2023 20.54)
+\   En DIME, cuando se escribe ayuda, se muestra ayuda-jugar, 
+\       cuando se pone algo que no existe, se muestra AYUDA-DIME.
+\       Ya muestra AYUDA-DIME, 21.03
+
+\ v1.159 (07-ene-2023 18.40)
+\   Defino AYUDA-JUGANDO que muestra los comandos que se pueden usar.
+\   En DIME, cuando se escribe ayuda, mostrar AYUDA-INTERACTIVO, no, mostrar AYUDA-JUGAR
+\   En JUGAR antes del bucle aviso que ahora es cuando se pueden cambiar los niveles.
+
+\ v1.158 (07-ene-2023 18.26)
+\   En COMANDO-RUN, si es NIVEL, si el que se indica es el mismo, nada que hacer.
+
+\ v1.157 (07-ene-2023 18.07)
+\   En NIVEL-MOSTRAR se muestra el rango de los números que se pueden poner.
+
+\ v1.156 (07-ene-2023 17.30)
+\   Quito el mensaje de comprobación del final de MOSTRAR-NUMS, 18.05
+\   En DIME antes de RESUELVE pongo un CR.
+\   Pongo que en RESUELVE se muuestre INSTRUCCIONES-MOSTRAR, se llame desde donde se llame.
+\   En JUGAR / DIME, si escribe resuelve no se muestra ninguna ayuda.
+\       Ahora se muestra INSTRUCCIONES-MOSTRAR,  17.41
+
+\ v1.155 (07-ene-2023 16.44)
+\   En JUGAR, al final del bucle no mostrar ayuda-jugar.
+\   Quito algunos CR en INSTRUCCIONES-MOSTRAR.
+\   Quito las comprobaciones de AYUDA-SEE.
+\   Al final de JUGAR, al llamar a AYUDA-JUGAR indico que no se muestre el título.
+\   Comento SOLUCIONMOSTRADA @ al final de JUGAR y JUGAR-SOLO, porque no se usa.
+\   En JUGAR muestro el nivel, etc al final, antes de "te ire preguntando..."
+
+\ v1.154 (07-ene-2023 16.19)
+\   En el CASE de COMANDO-RUN cuando es NUMS? no poner nada en la pila después. 16.43 
+\   Comprobar en COMANDO-RUN si se debe poner algo en la pila después de los comandos.
+\   En MOSTRAR-NUMS antes de salir y hacer DROP mostrar lo que hay en la pila.
+\       Parece que es correcto, 16.25
+
+\ v1.153 (07-ene-2023 15.31)
+\   En JUGAR al final, se ha quedado con menos cosas en la pila... 16.08
+\       y al escribir un número después de haber escrito una palabra que no existe, se ha vuelto loco.
+\       ¿Será porque comenté el DUP antes del CASE en COMANDO-RUN?
+\           Parece ser que sí. 16.12
+\   AYUDA-SEE solo se llama desde DIME y AYUDA.
+\   Comprobar si en AYUDA-SEE se queda algo en la pila.
+
+\ v1.152 (07-ene-2023 15.08)
+\   Comprobado que NUMS? no necesita limpiar la pila.
+\   La versión anterior va bien, usando JUGAR y JUGAR-SOLO.
+
+\ v1.151 (07-ene-2023 13.16)
+\   Quito algunas comprobaciones, 13.25
+
+\ v1.150 (07-ene-2023 13.08)
+\   COMANDO-INDEX ya deja la pila como estaba y devuelve el número o -1, 13.15
+
+\ v1.149 (07-ene-2023 12.56)
+\   En DIFICULTAD-INDEX ya está arreglado y funciona con 0 dificultad y _experto dificultad, 13.07.
+
+\ v1.148 (07-ene-2023 11.40)
+\   Sigue fallando... y parece que también con <NOMBRE> DIFICULTAD, 07-ene-2023 12.35
+\   Probar si al indicar 0 dificultad en COMANDO-RUN lo muestra bien.
+\   Ya va bien al asignar <NUMBER> DIFICULTAD y decir sí.
+\   Quito algunos test y pongo otro en CONTINUAR?
+
+\ v1.147 (07-ene-2023 09.23)
+\   Parece que ya va bien al indicar <NUMBRE> DIFICULTAD, 07-ene-2023 11.37
+\   Comprobar un poco el código a ver... 
+
+\ v1.146 (06-ene-2023 16.37)
+\   Parece que no convierte las dificultades en número al indicar _NIVEl DIFICULTAD en DIME
+\   Lo dejo por ahora... 06-ene-2023 18.34
+
+\ v1.145 (06-ene-2023 16.25)
+\   Quito las definiciones de $DIFICULTADES0
+
+\ v1.144 (06-ene-2023 15.55)
+\   Parece que ya funciona con $DIFICULTADES.
+\   Renombro $DIFICULTADES1 a $DIFICULTADES
+\   Renombro $DIFICULTADES a $DIFICULTADES0
+\   Empiezo quitando $DIFICULTADES para usar el formato de $DIFICULTADES1
+\   Quito las definciones de $DIFICULTADES2 y relacionados
+
+\ v1.143 (06-ene-2023 15.26)
+\   Ya funciona los arrays con s" y con la cadena y el valor, ver $DIFICULTADES1
+
+\ v1.142 (06-ene-2023 12.16)
+\   Probando para ver si puedo usar s" en lugar de $"
+
+\ v1.141 (06-ene-2023 10.24)
+\   Defino, para probar, $DIFICULTADES2 para tener un array con los textos y los números.
+\       DIFICULTAD2-N devuelve el número y DIFICULTAD2-$ la cadena compuesta.
+\   Afinando lo de las dificultades
+
+\ v1.140 (06-ene-2023 08.53)
+\   Definir array para las dificultades $DIFICULTADES y %DIFICULTADES
+
+\ v1.139 (06-ene-2023 07.40)
+\   Comprobar cuando se indique <_NOMBRE> DIFICULTAD
+
+\ v1.138 (06-ene-2023 06.59)
+\   SENCILLO 22, MEDIO 14, DIFICIL 12, EXPERTO 9, MAESTRO 6, SENSEI 5
+\   Cambio los nombres de los niveles de DIFICULTADES.
+\   Añado a $COMANDOS las palabras de los niveles de DIFICULTAD.
+\   Hay que probar si se puede usar los nombres de las dificultades en DIME.
+
+\ v1.137 (06-ene-2023 06.47)
+\   Cambio los textos mostrados al cambiar la DIFICULTAD en COMANDO-RUN.
+\   El marker que tenía estaba mal, tenía [IFDEF] pruebas-string.
+
+\ v1.136 (06-ene-2023 06.16)
+\   En COMANDO-RUN hacer con DIFICULTAD las mismas comprobaciones que con NIVEL.
+\       Por si no se indica un número al llamar a DIFICULTAD.
+
+\ v1.135 (06-ene-2023 06.04)
+\   En DIME si se escribe DIFICULTAD sin número delante, lo cambia a un valor aleatorio.
+\   DEFER AYUDA
+\   Añado AYUDA a los comandos.
+
+\ v1.134 (06-ene-2023 05.55)
+\   En RESUELVE se asigna que ya está adivinado el número.
+
+\ v1.133 (06-ene-2023 05.34)
+\   Tampoco va cuando dice un número que es menor o mayor de los ya dichos.
+\   Ya funciona en bucle, salvo si se escribe 0 o RESUELVE.
+\   DEFER DIME
+
+\ v1.132 (06-ene-2023 05.24)
+\   Ya va funcionando JUGAR en el bucle, aunque no finaliza.
+
+\ v1.131 (06-ene-2023 03.48)
+\   Defino nuevas palabras para jugar interactivo, la ayuda, etc.
+\       (poner todas las palabras nuevas)
+\       COMANDOS-MOSTRAR, NONAME... IS COMANDOS-MOSTRAR, JUGAR-INTERACTIVO, AYUDA-INTERACTIVO, $COMANDOS-TEXT
+\   Indico DEFER COMANDOS-MOSTRAR
+\   Empiezo a probar JUGAR para hacerlo en bucle.
+
+\ v1.130 (06-ene-2023 03.09)
+\   Defino CONTINUAR? para preguntar si se continúa o no.
+\   Defino NOT, aunque no lo uso por ahora.
+\   Simplifico la definición de LETRA? para que use DIGITO? INVERT.
+\   Comento el uso de algunas palabras.
+
+\ v1.129 (06-ene-2023 01.55)
+\   Ya no da problemas si se usa n dificultad o n nivel y después nivel sin un valor.
+\   Defino QUENUMEROS-LETRAS-LIMPIAR para usarlo desde AYUDA-SEE.
+
+\ v1.128 (06-ene-2023 01.07)
+\   Comprobaciones en COMANDO-RUN para el tema del nivel
+
+\ v1.127 (06-ene-2023 00.35)
+\   En COMANDO-RUN cuando es NIVEL dejar el índice en la pila.
+\   Ya funciona n NIVEL y n DIFICULTAD desde DIME.
+\   En AYUDA-SEE cuando se va a comprobar un comando, se comprueba si empieza por número
+\       si es así, se busca la palabra en *QUELETRAS
+\   En COMANDO-RUN se usa QUENUMEROS-TONUMBER antes de llamar a NIVEL o DIFICULTAD
+
+\ v1.126 (06-ene-2023 00.17)
+\   En COMANDO-RUN si se indica NIVEL o DIFICULTAD se usa el número indicado antes de la palabra.
+\   Defino palabras de para usar funciones de manejo de cadenas.
+\   Defino las palabras para guardar las letras y números de QUE.AYUDA.
+\   Creo definiciones para comprobar si hay texto y números en QUE.AYUDA.
+\       Si es así, asignar el número y las letras por separado,
+\           creo las variables QUE.NUMEROS y QUE.LETRAS.
+
+\ v1.125 (05-ene-2023 22.39)
+\   Cambio la comprobación en QUEAYUDA-ISNUMBER.
+
+\ v1.124 (05-ene-2023 22.03)
+\	Defino INICIAR como alias de REINICIAR.
+\	En DIME si se indica algo en la pila, se llama a REINICIAR
+\	En COMANDO-RUN después de comprobar si es NUMS? dejar el índice en la pila.
+\	En MOSTRAR-NUMS / NUMS? al llamarlo desde DIME da stack undeflow
+
+\ v1.123 (05-ene-2023 21.15)
+\	Al cargar el fichero limpiar la pila.
+\	En MOSTRAR-NUMS limpiar la pila al salir.
+\	En DIME, si se escribe 0, es como si se escribiera ME-RINDO.
+
+\ v1.122 (05-ene-2023 20.57)
+\	Quito comprobaciones y mensajes no válidos en AYUDA-SEE.
+
+\ v1.121 (05-ene-2023 20.35)
+\	En AYUDA llamo a AYUDA-SEE con 1 en la pila.
+\	Pongo comprobación en AYUDA-SEE por si hay algo en la pila no comprobar los comandos.
+\	Si se escribe ayuda nivel o ayuda dificultad, no ejecuta la ayuda, si no el comando.
+\		Y da stack undeflow
+
+\ v1.120 (05-ene-2023 20.27)
+\	Si se escribe solo AYUDA, no se muestra la ayuda predeterminada.
+\	Pongo QUEAYUDA-TOUPPER dentro de AYUDA-SEE.
+\	En AYUDA si se usa directamente (no dentro de DIME) no funciona 
+\		porque llega a AYUDA-SEE con el texto en minúsculas.
+
+\ v1.119 (05-ene-2023 19.05)
+\	Si en DIME se escribe "3 nivel" intenta buscar un comando o una ayuda con ese texto.
+\	QUEAYUDA-ISNUMBER devuelve false si tiene alguna letra.
+\		Antes si empezaba por un numero devolvía TRUE.
+
+\ v1.118 (05-ene-2023 18.11)
+\	Comprobaciones en AYUDA-RUN y COMANDO-RUN para ver lo que hay en la pila.
+\	Quito la definición de AYUDA-SEE-0 que ya no se usa.
+\	Quito las definiciones de AYUDASTR, *AYUDASTR, AYUDASTR-LENGTH, AYUDASTR+QUEAYUDA y ADD-AYUDA
+\		que no se utilizan desde el 05-ene-2023 10.33
+\	Quito las definiciones de *AYUDAS, QUEAYUDA-INDEX y AYUDA-SEE-PUNTEROS.
+\	Quito las definiciones de AYUDAS, .AYUDAS y AYUDA-SEE-OK estaba comentado el 02-ene-2023 23.58.
+\	Asigno MAKER adivina.forth por si vuelvo a cargar este fichero.
+
+\ v1.117 (05-ene-2023 17.41)
+\	Quito la definición de AYUDA-SEE-ANT, que ya no se usa.
+\	Quito la definición anterior de DIME, que ya no se usa.
+\	Defino QUEAYUDA-TIENE-LETRAS, QUEAYUDA-LIMPIAR, QUEAYUDA! y DI-QUEAYUDA
+\	Defino DIGITO?, LETRA? y TIENE-LETRAS
+
+\ v1.116 (05-ene-2023 13.27)
+\	Haciendo pruebas para ver si QUE.AYUDA tiene letras y otras comprobaciones.
+
+\ v1.115 (05-ene-2023 11.14)
+\	Hago comprobaciones de qué queda en la pila al usar DIME.
+\	Cambio QUEAYUDA-PRINT por QUEAYUDA-MOSTRAR
+\	En AYUDA-SEE si después de comprobar AYUDA-RUN queda -1 en la pila 
+\		es que no es un comando ni una ayuda.
+
+\ v1.114 (05-ene-2023 10.13)
+\	Después de DIME queda un valor en la pila.
+\	Si en DIME hay un valor en la pila, mostrar los niveles.
+\	Si no se usa ADD-AYUDA hay que convertir QUE.AYUDA en mayúsculas.
+\	AYUDASTR no se utiliza, quito las definiciones de:
+\		AYUDASTR, *AYUDASTR, ADD-AYUDA, AYUDASTR-LENGTH, AYUDASTR+QUEAYUDA y ADD-AYUDA.
+\	Al cargar el fichero pongo 1 REINICIAR para que no muestre los niveles.
+
+\ v1.113 (04-ene-2023 23.03)
+\	Al cargar el fichero llamar a REINICIAR para que estén los números listos para usar.
+\		Por si se empieza con DIME ya estén preparados los números.
+\	Redefino DIME para que no se quede sin nada en la pila.
+\	Redefino AYUDA-SEE para que compruebe las ayudas o comandos indicados.
+\	Defino COMANDO-INDEX y COMANDO-RUN para buscar y ejecutar el comando.
+\	Defino %COMANDOS, $COMANDOS y $COMANDO para el array de los comandos a usar en DIME.
+\	Defino AYUDA-RUN para mostrar la ayuda que corresponda según AYUDA-INDEX.
+\	Defino AYUDA-INDEX para saber qué índice tiene el contenido de QUE.AYUDA en el array $AYUDAS,
+\		Devuelve el índice en base 0 o -1 si no se ha encontrado.
+\	Añado a $AYUDAS las palabras con AYUDA delante, para usarlas en DIME.
+\	Cambio el número de %AYUDAS a 13, eran 6
+\	Redefino STR>INT para que deje en la pila NO-NUM si no es un número lo que convierte.
+\	Defino NO-NUM para saber si STR>INT no convierte un número.
+
+\ v1.112 (04-ene-2023 18.50)
+\	Defino AYUDASTR+QUEAYUDA para el contenido de AYUDA- más lo que tenga QUE.AYUDA
+\	Defino AYUDASTR-LENGTH los caracteres de AYUDASTR, siempre 6 si es AYUDA-
+\	Defino QUEAYUDA-LENGTH para saber el contenido real de AYUDASTR:
+\		AYUDASTR 1+ MAX_AYUDA -TRAILING QUEAYUDA-LENGTH 6 + SWAP DROP TYPE
+
+\ v1.111 (04-ene-2023 17.13)
+\	Probando las nuevas palabras para manejar QUE.AYUDA
+\	Las palabras definidas son:
+\		PLACE$, la tenía comentada
+\		STR>INT? y STR>INT
+\		*QUEAYUDA, QUEAYUDA-ISNUMBER, QUEAYUDA-TONUMBER
+\		VARIABLE COMPROBARSEE
+\		AYUDA-SEE, nueva versión
+\		CREATE AYUDASTR, VARIABLE *AYUDASTR, ADD-AYUDA
+\		DIME
+
+\ v1.110 (03-ene-2023 20.04)
+\	Amplio la información de AYUDA-FORTH con un par de ejemplos.
+
+\ v1.109 (03-ene-2023 19.42)
+\	Añado comprobación en AYUDA-SEE para mostrar la ayuda de Forth.
+\	Cambio el valor de %AYUDAS y añado FORTH a $AYUDAS.
+\	En AYUDA-GENERAL pongo que se puede escribir AYUDA FORTH.
+
+\ v1.108 (03-ene-2023 18.47)
+\	Defino AYUDA-FORTH sobre el lenguaje Forth.
+\	Pongo en el título que es Adivina Forth.
+
+\ v1.107 (03-ene-2023 17.34)
+\	Cambio textos en DIFICULTADES-MOSTRAR y DIFICULTAD-MOSTRAR.
+\	En HUMOR-PISTA poner los espacios para cuando es el 50%
+
+\ v1.106 (03-ene-2023 17.25)
+\	En HUMOR-PISTA poner los espacios para cuando es el 50%
+\	Cambio HUMOR-HINT por HUMOR-PISTA.
+
+\ v1.105 (03-ene-2023 16.57)
+\	En LAS-DIFICULTADES se muestran los intentos desde _MAESTRO a _SENCILLO.
+\	Cambiar el texto al mostrar la ayuda de DIFICULTAD.
+\	Si se escribe 0 DIFICULTAD asignar un valor aleatorio entre _SENCILLO y _MAESTRO.
+\	Cambiar los valores de las dificultades de 1 _SENCILLO a 5 _MAESTRO
+
+\ v1.104 (03-ene-2023 16.25)
+\	Al asignar el valor de DIFICULTAD 
+\		Si el valor indicado es mayor de _MAESTRO, asignar _MAESTRO.
+\		Si es menor de _SENCILLO asignar _SENCILLO.
+\	Desde NIVEL llamar a REINICIAR sin nada en la pila.
+\	En REINICIAR solo mostrar " Se han reiniciado los valores..." cuando no se indica nada en la pila.
+\	Ajustes en los textos a mostrar en AYUDA-GENERAL.
+
+\ v1.103 (03-ene-2023 16.07)
+\	Al cargar el fichero, asignar el nivel de DIFICULTAD con _MEDIO DIFICULTAD!
+\		ya que al hacerlo con _MEDIO DIFICULTAD se muestra el nivel.
+\	Defino DIFICULTAD-RANDOM para asignar un valor aleatorio a NIVELDIFICULTAD.
+\		El valor será entre _SENCILLO y _MAESTRO (el mínimo y el máximo).
+
+\ v1.102 (03-ene-2023 15.10)
+\	Desde JUGAR y JUGAR-SOLO se indica un valor en la pila antes de llamar a REINICIAR.
+\	En REINICIAR si no se ha indicado nada en la pila se llama a VER-NIVELES.
+\	En AYUDA-GENERAL se muestra que REINICIAR prepara el juego.
+\	En REINICIAR se muestra un mensaje de que se han reiniciado los valores y el número a adivinar.
+\	En NIVEL y DIFICULTAD mostrar el nivel después de asignar un nuevo valor.
+
+\ v1.101 (03-ene-2023 14.50)
+\	En NIVEL no se inicia el juego, solo se cambia el nivel y se llama a REINICIAR.
+\	Arreglo de texto en NIVEL
+
+\ v1.100 (03-ene-2023 12.40)
+\	Cambio GUESS? por NUMEROCORRECTO?
+\	Comeneto HELP1 y HELP2 porque ya no se usan.
+\	Comento las definiciones de ADDR$, PLACE$ y PRINT$
+\	En HUMOR-HINT muestro los números posibles cuando le quedan 2.
+
+\ v1.99 (02-ene-2023 23.52)
+\	Quito cosas no usadas y comento otras.
+
+\ v1.98 (02-ene-2023 22.24)
+\	AYUDA-SEE usa un bucle para comprobar si el texto está en $AYUDAS y 
+\		un CASE para acceder a la ayuda que corresponda.
+\	Defino %AYUDAS, $AYUDAS, $AYUDA
+\	Defino palabras para manejar las cadenas 
+\		para poder usar un array de cadenas con $" y acceder al contenido en un bucle.
+
+\ v1.97 (02-ene-2023 18.04)
+
+\ v1.96 (02-ene-2023 17.05)
+\	Defino ADDR$ para dejar en la pila la dirección de la cadena indicada
+\	Defino PLACE$ y PRINT$ para asignar cadenas usando s"
+
+\ v1.95 (02-ene-2023 14.05)
+\	Iba a definir ??? como alias de A-N? pero ??? está definida en gForth como una variable
+
+
+\ v1.94 (02-ene-2023 13.11)
+\	Asigno 20 (en vez de 40) a MAX_AYUDA, la longitud máxima de la palabra indicada después de AYUDA.
+\	Cambio N.GUESS por NUMEROINDICADO
+\	Cambio N.MAYOR por MAYORINDICADO
+\	Cambio N.MENOR por MENORINDICADO
+\	Quito la definición de N-A y N-A?
+\	Cambio NIVEL.D por NIVELDIFICULTAD
+\	Cambio MAX.INTENTOS por INTENTOSMAXIMO
+\	Cambio EL.NUM por NUMEROADIVINAR
+\	Cambio N.LAST por ULTIMONUMERO
+\	Cambio EL.NIVEL por ELNIVEL
+\	Cambio NIVEL.MAX por NIVELMAXIMO
+\	Cambio SOLUCION.MOSTRADA por SOLUCIONMOSTRADA
+\	Cambio QUIEN.JUEGA por QUIENJUEGA
+\	Cambio I.N por INTENTOS
+
+\ v1.93 (01-ene-2023 22.31)
+\	Cambio el texto en JUGAR (ambos inclusive)
+
+\ v1.92 (01-ene-2023 22.28)
+\	Pongo un CR en AYUDA-GENERAL.
+
+\ v1.91 (01-ene-2023 22.18)
+\ 	Defino ?? como alias de ADIVINA.
+
+\ v1.90 (01-ene-2023 22.07)
+\	Faltaba NIVEL.D @ al llamar a DIFICULTAD-N
+
+\ v1.89 (01-ene-2023 21.42)
+\	En jugar hay que poner un numero en la pila para que no de error.
+\	Sigue dando Stack underflow al llamar a jugar.
+\	Defino AYUDA-SEE sin usar *AYUDAS.
+
+\ v1.88 (01-ene-2023 21.17)
+\	Da error de Stack underflow al llamar a jugar.
+\	Al indicar el nivel se llama a JUGAR.
+\	En JUGAR no mostrar ninguna ayuda, simplemente empezar el juego.
+
+\ v1.87 (01-ene-2023 20.42)
+\	Usando *AYUDAS con punteros a las palabras filtrado con QUEAYUDA-INDEX.
+
+\ v1.86 (01-ene-2023 15.57)
+\	En AYUDA-SEE se convierte QUE.AYUDA en mayúsculas para simplificar las comparaciones.
+
+\ v1.85 (01-ene-2023 15.48)
+\	Incluyo la comprobación de ADIVINA en AYUDA-SEE.
+
+\ v1.84 (01-ene-2023 15.41)
+\ 	Cambio SHOW-CORRECTO por MOSTRAR-CORRECTO.
+\ 	Cambio SHOW-INSTRUCCIONES por INSTRUCCIONES-MOSTRAR.
+\	Cambio SHOW-DIFICULTADES por DIFICULTADES-MOSTRAR.
+
+\ v1.83 (01-ene-2023 15.30)
+\	Algunos ajustes en los textos a mostrar.
+\	Cambio N.POSIBLES por N-POSIBLES.
+
+\ v1.82 (01-ene-2023 15.20)
+\	Pongo las ayudas antes de las palabras propias del juego.
+\	Pongo antes de las ayudas algunas palabras que se usan en las ayudas.
+
+\ Nuevo en v1.81 (01-ene-2023 14.19)
+\	Pongo las variables y constantes antes de las definiciones de las palabras del juego.
+\	Arreglo HELP1 y otros textos al mostar la ayuda, etc.
+\	Cambio INC.I.N por INC-INTENTOS
+
+\ Nuevo en v1.80 (01-ene-2023 11.52)
+\	Añado ADIVINA a los textos a usar con AYUDA XXX (aún no está implementado en AYUDA-SEE).
+\	Defino AYUDA-ADIVINA para mostrar las opciones de ADIVINA y usar un número para ADIVINA.
+\	Cambios en algunas llamadas de ayuda, etc.
+\	En AYUDA-XXX si no hay nada en la pila se muestra ." La ayuda de XXX"
+\		Si hay algo en la pila no se muestra ese mensaje.
+\	Cambio NIVEL-SHOW por NIVEL-MOSTRAR.
+\	En NIVEL si no se indica el número, mostrar el nivel actual (NIVEL-SHOW).
+
+\ Nuevo en v1.79 (01-ene-2023 09.43)
+\	Quito la definición de GIVE-UP.
+\	En DIFICULTAD si no se indica el número, mostrar el nivel de dificultad.
+\	Quito la definición de NUMS+
+\	Defino ARRAY.NUMS usando ARRAY
+\	Defino ARRAY
+
+\ Nuevo en v1.78 (31-dic-2022 19.47)
+\	Quito los QUIT de AYUDA-xxx porque si no no se continua después de los IFs en AYUDA-SEE.
+
+\ Nuevo en v1.77 (31-dic-2022 19.18)
+\	Intentar hacer las comparaciones sin diferenciar mayúsculas de minúsculas.
+
+\ Nuevo en v1.76 (31-dic-2022 19.15)
+\	Defino un formato más simplificado de AYUDA-SEE con IFs.
+\	Defino LIMPIAR-PILA.
+
+\ Nuevo en v1.75 (31-dic-2022 16.58)
+\	Probar a convertir una palabra en minúsculas y usar AYUDA-SEE con las comparaciones.
+\	No lo he conseguido, usar un formato más simplificado de AYUDA-SEE con IFs.
+
+\ Nuevo en v1.74 (31-dic-2022 13.28)
+\	Más pruebas en ayuda-prueba.txt, pero no consigo nada...
+
+\ Nuevo en v1.73 (30-dic-2022 23.32):
+\	Haré puebas en ayuda-prueba.txt a ver si consigo algo al estilo de AYUDA0
+\		No doy con la tecla.
+
+\ Nuevo en v1.72 (30-dic-2022 23.19):
+\	Dejo la definicón original de AYUDA y AYUDA-SEE de la versión v1.69
+\	Dejo los nuevos intentos (que no funcionan) como AYUDA0 y YUDA-SEE0
+
+\ Nuevo en v1.71 (30-dic-2022 20.30):
+\	El nuevo código NO FUNCIONA.
+\		Si se escribe, por ejemplo: AYUDA JUGAR muestra AYUDA-GENERAL
+\		Si se escribe AYUDA-JUGAR si funciona (evidentemente)
+\
+\	El nuevo código para usar AYUDA funciona bien si:
+\		Se escribe AYUDA separado de un espacio y lo que sea.
+\			si "lo que sea" está definido como AYUDA-"lo que sea"
+\				se mostrará lo que haya en esa palabra, por ejemplo AYUDA-JUGAR.
+\			si "lo que sea" NO está definido como AYUDA-"lo que sea"
+\				dará un error de "undefined word"
+\				Por ejemplo si se escribe: ayuda-nada <INTRO>
+\	ayuda-nada
+\	:11: Undefined word
+\	>>>ayuda-nada<<<
+\	Backtrace:
+\	$7FA74EB4 throw
+\	$7FA81628 no.extensions
+\	$7FA7502C interpreter-notfound1
+\				
+\	Usar el nuevo código para AYUDA, simplificando todo.
+
+\ Nuevo en v1.70 (30-dic-2022 19.55):
+\	Las pruebas para poder usar AYUDA- y que se interprete lo escrito.
+\	Sin cambios en adivina.forth con respecto a la v1.69
+
+\ Nuevo en v1.69:
+\	Texto a mostrar en VERSION-ADIVINA
+
+\ Nuevo en v1.68:
+\	Antes de seguir añadiendo palabras de AYUDA, 
+\		comprobar si se puede hacer que se asigne en minúsculas o mayúsculas.
+
+
+\ Nuevo en v1.67:
+\	En AYUDA-JUGAR aclaro que si el numero indicado 
+\		es menor o mayor de los ya indicados no cuenta como intento.
+\	Añado opción para usar AYUDA-PISTA.
+
+\ Nuevo en v1.66:
+\	Defino AYUDA-PISTA.
+\	Textos para AYUDA JUGAR.
+
+\ Nuevo en v1.65:
+\	Si se escribe AYUDA y más de una palabra, da error en la segunda palabra
+
+\ Nuevo en v1.64:
+\ 	Al cargar el fichero borrar el contenido de la pantalla.
+\	Comprobando los 2DUP y 2DROP de AYUDA-SEE
+
+\ Nuevo en v1.63:
+\	Al cargar el fichero no empezar con JUGAR, mostrar las opciones de juego y jugar solo.
+\		Probar con AYUDA sin nada más.
+\	Primer intento para mostrar AYUDA escribiendo:
+\		AYUDA juego, AYUDA nivel y AYUDA DIFICULTAD
+\		Por ahora solo se "comprenden" esas palabras todo en mayúsculas o todo en minúsculas.
+
+\ Nuevo en v1.62:
+\	Preparando para usar AYUDA JUEGO, AYUDA, NIVEL, AYUDA DIFICULTAD
+
+
+\ Nuevo en v1.61:
+\	En SHOW-DIFICULTADES pongo que también se puede usar D!
+\	En LAS-DIFICULTADES separar el valor del signo igual.
+\	Defino D! para asignar el nivel de dificultad, D! es un alias de DIFICULTAD.
+\	En LAS-DIFICULTADES al mostrar los niveles hacerlo con N = _NIVEL (antes era N:_NIVEL)
+
+\ Nuevo en v1.60:
+\	Definir OPCIONES-SOLO para que sea como OPCIONES-AUTO.
+\	Cuando no se adivina el número, muestra: No quedan intentos,
+\		mostrarlo en otra línea.
+
+\ Nuevo en v1.59:
+\	En SHOW-INSTRUCCIONES pongo un CR al principio para separar las instrucciones
+\		del resultado mostrado al adivinar o mostrar la solución.
+
+\ Nuevo en v1.58:
+\	Cambio textos en SHOW-INSTRUCCIONES cuando la máquina termina de jugar.
+
+\ Nuevo en v1.57:
+\	En NIVEL-RANDOM no usaba NIVEL.MAX como variable
+\	Pongo después de ADIVINA las definiciones de : N-NEXT, N-NEXT?, A-N?, N-A? y N.G?
+\		Ya que A-N? usa ADIVINA
+
+\ Nuevo en v1.56:
+\	Cambio el nombre N.G? a A-N? y defino N-A? como A-N?
+\		Dejar N.G? por si me equivoco indicando que está obsoleto.
+\	Cambio el nombre de NEXT? a N-NEXT?
+\	cambio el nombre de N.NEXT a N-NEXT
+
+\ Nuevo en v1.55:
+\	Defino N-A como ADIVINA, por si en vez de N-A escribo A-N ;-)
+\	Quito las definiciones que ya no se usan
+
+\ Nuevo en v1.54:
+\	En REINICIAR no asignar nada a QUIEN.JUEGA, por si se llama desde NIVEL
+\	Cambio HINT por PISTA
+\	Cambio el nombre de DIFICULTAD? a DIFICULTAD-$ para indicar que es un texto.
+\	Cambio el nombre de DIFICULTAD.N a DIFICULTAD-N
+\	Cambio SENCILLO, MEDIO, DIFICIL, EXPERTO, MAESTRO precediendo con guión bajo
+\	Cambio HUMANO por _HUMANO y MAQUINA por _MAQUINA ya que son constantes
+\	Cambio MAX.NUMS por MAX_NUMS ya que es una constante
+\	Cambio NUMS por ARRAY.NUMS
+\	Cambio NUM por EL.NUM
+\	Cambio EL-NIVEL por EL.NIVEL
+\	Cambio SOLUCION-MOSTRADA por SOLUCION.MOSTRADA
+\	Quito MAQUINA? si hace falta usarlo comprobar que HUMANO? es false
+\	Cambio QUIEN-JUEGA por QUIEN.JUEGA
+\	Las variables que usen punto, si usa el guión no es variable.
+\		Así se sabe que si se usa un nombre con punto debe usarse @ para el valor.
+\		Las constantes usaran un guión bajo, por ejemplo MAX_NUMS
+\	Quito GUESS y G y uso ADIVINA y A-N.
+\	En gForth (al menos para Android) G está definido.
+
+\ Nuevo en v1.53:
+\	Nada solo cambio versión y fecha
+
+\ Nuevo en v1.52:
+\	Poner los textos adecuados según quién esté jugando.
+\		En HELP1 y HELP2 dejarlo para el humano.
+\		En QUEDAN-INTENTOS, GUESS
+\	Se asigna HUMANO en JUGAR, se asigna MAQUINA en JUGAR-SOLO
+\	HUMANO? devuelve TRUE si juega el humano
+\	MAQUINA? devuelve TRUE si juega la máquina, no juega el humano
+\	Defino QUIEN-JUEGA para saber si es HUMANO o MAQUINA, 
+\		En REINICIAR se asigna 0
+\	Defino 10 CONSTANT HUMANO y 11 CONSTANT MAQUINA
+
+\ Nuevo en v1.51:
+\	En JUGAR-SOLO fallaba la comprobación de SOLUCION-MOSTRADA después del UNTIL
+\		porque no usaba el @ para acceder al valor de SOLUCION-MOSTRADA.
+
+\ Nuevo en v1.50:
+\	En SEGUIR-BUCLE también compruebo SOLUCION-MOSTRADA pero parece que no va bien
+\	Defino SOLUCION-MOSTRADA para saber que se ha mostrado la solución.
+\		El valor se pondrá a FALSE en REINICIAR.
+\		Se asignará TRUE si se muestra la solución en QUEDAN-INTENTOS y GUESS
+\		Se usará en JUGAR-SOLO para saber si no ha podido adivinar el número.
+\		Así evito los problemas con la comprobación de I.N @ MAX.INTENTOS @ >=
+
+\ Nuevo en v1.49:
+\	En JUGAR-SOLO aunque lo adivina en el último intento, dice que tiene que mejorar.
+\	JUGAR-SOLO-DIFICIL cambio el nivel de DIFICULTAD de EXPERTO a MAESTRO a de DIFICIL a MAESTRO
+\	JUGAR-SOLO-DIFICIL cambio el nivel de NIVEL.MAX - 2 a NIVEL.MAX a NIVEL.MAX - 4 a NIVEL.MAX
+
+\ Nuevo en v1.48:
+\	Cambio el texto mostrado en NIVEL-SHOW
+\	VER-NIVELES muestra los niveles de juego.
+\	OPCIONES-AUTO muestra las opciones de juego automático.
+\	En JUGAR-SOLO-??? usaba NIVEL.MAX sin usar @ 
+\		lo usaba como constante en vez de como variable
+\	Mostrar en la ayuda que puede jugar solo.
+
+\ Nuevo en v1.47:
+\	Cambio los comentarios con ( por \
+\	Quito algunas de las cosas comentadas que puse en versiones anteriores.
+\	ADIVINADO solo se usa en JUGAR-SOLO, cambio el nombre a SEGUIR-BUCLE
+\		Ya que es tanto si lo ha adivinado como si han pasado los intentos.
+
+\ Nuevo en v1.46:
+\ 	VARIABLE N.GUESS estaba definida en la línea 346 y se usaba antes en la 281
+\	En JUGAR-SOLO después de UNTIL pongo I.N @ MAX.INTENTOS @ >=
+\		Porque ya no se cumple con I.N @ MAX.INTENTOS @ >
+\	En QUEDAN-INTENTOS se asigna el número a N.GUESS cuando avisa Muchos intentos, la solucion es
+\	En QUEDAN-INTENTOS se debe comprobar con I.N @ MAX.INTENTOS @ >=
+\	En GUESS antes de incrementar los intentos, 
+\		comprobar si ya es el máximo y mostrar la solución directamente.
+
+\ Nuevo en v1.45:
+\	QUEDAN-INTENTOS compruebo I.N @ MAX.INTENTOS @ > antes era I.N @ MAX.INTENTOS @ >=
+\	Defino JUGAR-SOLO-DIFICIL para ver si pillo el fallo en ADIVINADO
+\	Intentar arreglar cuando juega solo y se pasa de los intentos que aún juega una vez más.
+
+\ Nuevo en v1.44:
+\	JUGAR-SOLO llama a DIFICULTAD! para no mostrar el mensaje.
+\	DIFICULTAD! asigna el nivel de DIFICULTAD el máximo de intentos, sin mostrar el valor en la consola.
+\	DIFICULTAD llama a DIFICULTAD! y muestra el nivel, etc.
+\	En JUGAR-SOLO no mostrar el nivel de dificultad.
+
+\ Nuevo en v1.43:
+\	Bug: tenía VARIABLE NIVEL.MAX 12 NIVEL-MAX !
+\		Debe ser: VARIABLE NIVEL.MAX 12 NIVEL.MAX !
+
+\ Nuevo en v1.42:
+\	El valor máximo del nivel como variable inicialmente con el valor 12.
+
+\ Nuevo en v1.41:
+\	Quito las definiciones de random2? y prueba-r2 para ver manejo de la pila y no usar r1 y r2.
+
+\ Nuevo en v1.40:
+\	Quitar las variables r1 y r2 de random2.
+\		Dejo definiciones de random2? y prueba-r2 para ver manejo de la pila y no usar r1 y r2.
+\	Quito los comentarios de LAS-DIFICULTADES.
+
+\ Nuevo en v1.39:
+\	En LAS-DIFICULTADES se quedaban valores en la pila, ya que
+\		se usaba I DIFICULTAD.N que en realidad no servía para nada.
+
+\ Nuevo en v1.38:
+\	En JUGAR y NIVEL se llama a CR NIVEL-SHOW después de REINICIAR.
+\	NUEVO-NUM crea un nuevo número aleatorio según el nivel
+\		ya no muestra el nivel, solo se usa desde REINICIAR
+\	Cambio NIVEL-NUMERO por NIVEL-SHOW, muestra el nivel actual
+
+\ Nuevo en v1.37:
+\ 	DIFICULTAD llama a DIFICULTAD-MOSTRAR por si se usa desde la consola
+\		No usarla desde otra palabra, asignar directamente el valor a NIVEL.D
+\		En DIFICULTAD se comprueba que tenga un valor adecuado y se asigna MAX.INTENTOS
+\	JUGAR-SOLO-FACIL juega con un NIVEL entre 1 a 6 y DIFICULTAD MEDIO
+\	JUGAR-SOLO-AUTO elige al azar el NIVEL de 1 a 9 y DIFICULTAD de SENCILLO a MAESTRO
+\	Quito las pruebas de BEGIN / UNTIL.
+\	Simplificar las palabras para jugar solo /automáticamente.
+
+\ Nuevo en v1.36:
+\	JUGAR-SOLO jugará con el NIVEL y DIFICULTAD que se hayan asignado.
+\	Cambio el nombre de las palabras para jugar automáticamente (jugar solo).
+\	Los niveles de DIFICULTAD serán:
+\		SENCILLO 22, MEDIO 14, DIFICIL 9, EXPERTO 6, MAESTRO 5
+\	Antes eran: MUY-FACIL 50, FACIL 30, NORMAL 15, MEDIO 12, DIFICIL 8, EXPERTO 6, MASTER 4
+\	El nivel MASTER ponerlo con 5 intentos, ya que con 4 intentos es imposible.
+\	Quitar el nivel MUY-FACIL (50 intentos) y empezar con FACIL (30 intentos)
+\	En el nivel D.NORMAL muestro el texto D.NORMAL por si se escribe para indicar el nivel de DIFICULTAD.
+
+\ Nuevo en v1.35:
+\	SwiftForth tiene definidas: VERSION NORMAL H y RUN
+\	Cambios: 
+\		VERSION por VERSION-ADIVINA
+\		NORMAL por D.NORMAL
+\		Quito H
+\		Quito RUN
+
+\ Nuevo en v1.34:
+\ 	Cambio la forma de usar JUGAR-SOLO2
+\	JUGAR-EXPERTO con nivel 7 a 9 y DIFICULTAD EXPERTO
+\	Pero parece que no hace caso al llamar a JUGAR-SOLO2
+\		Aunque se asignan los valores de EL-NIVEL y NIVEL.D
+
+\ Nuevo en v1.33:
+\	Ya juega solo de forma automática. Escribir JUGAR-SOLO.
+\ 	JUGAR-AUTO elige al azar el NIVEL de juego entre 4 y 9 y DIFICULTAD entre NORMAL y MASTER
+\ 	JUGAR-SOLO juega con un NIVEL entre 1 y 9 y con el nivel de DIFICULTAD MEDIO
+
+\ Nuevo en v1.32:
+\	Pruebas para ver cómo va BEGIN / UNTIL
+\		Y adivinar usando el array PRUEBAS con los números a usar con GUESS
+\	Quito LEVEL porque Level es una variable de gForth
+\ 	Primer intento de jugar automáticamente.
+
+\ Nuevo en v1.31:
+\	Casi listo para jugar automáticamente.
+\	Quito comentarios de cosas que ya no se usan.
+
+\ Nuevo en v1.30:
+\	Quito las definiciones y cosas que ya no se usan.
+
+\ Nuevo en v1.29:
+\	En REINICIAR se asignan 0 a N.MENOR y EL-MAXIMO + 1 a N.MAYOR
+\ 	N.POSIBLES ahora comprueba con N.MENOR y N.MAYOR que tendrán los valores correctos.
+\ 	En HINT mostrar adecuadamente cuál es el menor y mayor
+\	N.MAYOR debe ser 1 más del mayor a adivinar (al iniciar) 
+\		después asignar el indicado como mayor.
+
+\ Nuevo en v1.28:
+\	NUEVO-NUM se llama desde REINICIAR.
+\	Empezar con el nivel NORMAL de dificultad (NORMAL DIFICULTAD).
+\	Cambios en el texto de ayuda (HELP1 y HELP2)
+\	LAS-DIFICULTADES para mostrar los niveles posibles de dificultad.
+
+\ Nuevo en v1.27:
+\	En N.NEXT compruebo si N.MAYOR - N.MENOR = 1 y si es así uso N.MAYOR.
+\	En MOSTRAR-NUMS muestro desde MAX.INTENTOS a 0 (antes I.N)
+\		Y si el número a mostrar es cero salgo del bucle.
+\		Es que con I.N no siempre iba bien... y sin lógica.
+\	N.G? ( N.NEXT) Falla si el número a adivinar es 100 (y va de 1 a 100)
+\		Se queda siempre en 99 aunque diga es menor.
+\	En MAYOR-MENOR ahora muestra si es menor, si no, es mayor.
+\		Que muestre era menor, era mayor o el numero
+\	Al mostrar los números (con NUMS? / MOSTRAR-NUMS ) no mostrar los no introducidos.
+\		Mostrar hasta el número de intentos.
+
+\ Nuevo en v1.26:
+\	NUMS? como MOSTRAR-NUMS
+\	En GUESS se guarda el valor indicado en la posición I.N - 1 
+\		porque el índice del array empieza por cero.
+\	NUMS! para asignar un valor en el índice de NUMS: n index# NUMS!
+\ 	MAX.NUMS+1 ahora devuelve MAX.INTENTOS, antes le sumaba 1
+\	No muestra bien los intentos que lleva y los que quedan.
+\	Corregir el último intento en GUESS (da la solución cuando aún queda 1 )
+\		Tenía I.N @ MAX.INTENTOS @ >= y debía ser I.N @ MAX.INTENTOS @ >
+
+\ Nuevo en v1.25:
+\	DIFICULTAD (antes NIVEL-JUEGO) para indicar el nivel de dificultad.
+\ 		Asigna el número máximo de intentos, 
+\ 		Comprueba si el valor del nivel de dificultad está en rango.
+\ 		Asigna el valor de máximo intentos y muestra info del nivel de dificultad.
+\	DIFICULTAD! asigna el nivel de dificultad indicado y llamar a DIFICULTAD.
+\	DIFICULTAD.N Para acceder al número de intentos del nivel indicado.
+\	DIFICULTAD? Devuelve una cadena según el nivel de dificultad 
+\ 		Con el texto y el valor de los intentos 
+\	Usar un nivel de dificultad para indicar cuántos intentos se le da.
+\		0-MUY-FACIL	50
+\		1-FACIL		30
+\		2-NORMAL	15
+\		3-MEDIO		12
+\		4-DIFICIL	 8
+\		5-EXPERTO	 6
+\		6-MASTER	 4
+\	MAX.NUMS+1 será el valor de MAX.INTENTOS + 1
+\	MAX.INTENTOS será el número máximo de intentos.
+\		Se asignará según el nivel de dificultad.
+\	SHOW-INSTRUCCIONES muestra las instrucciones después de 
+\	adivinar el número o mostrar el que era por si ha pasado el número de intentos.
+\	Defino las palabras para manejar el array de NUMS.
+\	NUMS+ indicará la posición a asignar que esté en la pila.
+\	NUMS-CLEAR borra el contenido del array NUMS.
+\	MOSTRAR-NUMS muestra el contenido del array NUMS.
+
+\ Nuevo en v1.24:
+\	Defino N.G y N.G? para elegir automáticamente el número recomendado.
+\		N.G? lo muestra
+\	Defino NEXT? para asignarlo y mostrarlo (lo muestra y lo deja en la pila)
+\	N.NEXT lo definí como NEXT, pero NEXT está definido en gForth.
+\	Defino N.NEXT para poner en la pila el siguiente número que debería elegir.
+\		Media = (Mayor - Menor) / 2
+\		Siguiente = Menor + Media
+\	N.NEXT se podrá usar para cuando juegue en modo automático.
+\	Mostrarlo mediante HINT? o en el mismo HINT.
+
+\ Nuevo en v1.23:
+\	Defino GUESS? para comprobar si el número indicado es aceptable.
+\		Que no sea menor de 1, que no sea mayor que el máximo,
+\		que no sea menor del menor ni mayor del mayor.
+\	Defini N.GUES para guardar el número indicado.
+\	Quitar la variable con el penúltimo, dejar solo N.LAST.
+
+\ Nuevo en v1.22:
+\ 	Defino NIVEL? para comprobar que el NIVEL tenga un valor adecuado.
+\	Quito INICIAR2 y lo pongo directamente en NIVEL.
+\	Quito R y pongo RES como alias de RESUELVE.
+\	Quito PORFA para mostrar el número a adivinar.
+\	Cambio los textos en RESUELVE.
+\	REINICIAR solo asigna los valores predeterminados a las variables.
+\ 	Generar el numero a advinar aparte en NUEVO-NUM.
+\ 		No generarlo en REINICIAR, si no en JUGAR.
+\		En gForth para Android siempre asigna el 1 cuando se escribe RUN/JUGAR.
+\		Generandolo después de RUN si lo hace bien.
+
+\ Nuevo en v1.21:
+\ 	Al acertarlo con GUESS quito de la pila el último número indicado.
+\ 	Quito randomize de REINICIAR y lo pongo al cargar el fichero
+
+\ Nuevo en v1.20:
+\ 	R es como RESUELVE
+\ 	PORFA es como RESUELVE
+\ 	Si se usa HINT con el número adivinado, indicarlo y no mostrar nada más.
+
+
+\ Nuevo en v1.19:
+\ 	Un poco de humor en HINT.
+\	Al mostrar EL-MAXIMO hacerlo con STR.
+\	En la ayuda arreglar el texto si se escribe HINT.
+
+\ Nuevo en v1.18:
+\	Defino STR para convertir un número en una cadena sin espacios al final ni al principio.
+\ 	Poder poner un punto al final cuando se muestren los números.
+
+\ Nuevo en v1.17:
+\ 	En HINT simplifico el texto a mostrar.
+\		Mostrando también los intentos que quedan.
+\	Quito las comprobaciones que puse de:
+\ 		Si se indica un número mayor que el mayor más cercano, no tenerlo en cuenta.
+\		Lo mismo si se indica uno menor que el menor más cercano.
+\	Ya que tal como estaba lo hacía bien.
+
+\ Nuevo en v1.16:
+\	Correcion en CERCANO y el texto a mostrar en HINT.
+\	Inicialmente asignar a N.MAYOR el valor máximo.
+
+\ Nuevo en v1.15:
+\	Defino G para usar en lugar de GUESS.
+\ 	En HINT mostrar los números más cercanos al indicado.
+\ 		Por ejemplo si el número es 15 y había dicho 10 y 25 decir que está entre 10 y 25.
+\		Es decir, guardar el menor más cercano y el mayor más cercano.
+
+\ Nuevo en v1.14:
+\ 	Al cargar el fichero empezar con un nivel aleatorio.
+\	Quito INICIAR y dejo RUN y JUGAR
+\ 	LEVEL como NIVEL
+\	Cambio HELP por HELP1 y quito -H para no sobrescribir la definada en gForth para Android.
+
+\ Nuevo en v1.13:
+\ 	En GUESS mostrar más información sobre el número anterior y el penúltimo.
+\		Como hace en HINT: 
+\		Ultimo numero indicado es 75 (era mayor) El Penultimo numero indicado es 50 (era menor)
+\ 	En QUEDAN-INTENTOS se muestra los intentos que lleva y los que quedan, antes los que quedaban
+\		Se pluraliza según quede/lleve 1 intento o más.
+
+\ Nuevo en v1.12:
+\ 	Al iniciar las variables usar clearstacks.
+
+\ Nuevo en v1.11:
+\ 	Al cargar el fichero mostrar iniicar el juego.
+\ 	En la ayuda mostrar mejor lo que ocurre al indicar GUESS
+\	Corregido bug en GUESS al comprobar si el número indicado es mayor que el máximo.
+
+\ Nuevo en v1.10:
+\ 	Si se indica un número mayor del máximo no aceptarlo ni contarlo como intento.
+
+\ Nuevo en v1.9:
+\ 	Ajustes al mostrar el nivel después de adivinar el número.
+
+\ Nuevo en v1.8:
+\ 	Al final de la ayuda se muestra el nivel actual y el rango del número a adivinar.
+\	Usar NIVEL-NUMERO para mostrar el nivel y el rango del número a adivinar
+
+\ Nuevo en v1.7:
+\ 	Quito que se muestre el número elegido
+
+\ Nuevo en v1.6:
+\	Revisión de lo hecho en v1.5 y algunos ajustes
+\ 	random2 para sacar un número aleatorio entre los 2 indicados (ambos inclusive)
+
+\ Nuevo en v1.5:
+\ 	Algunos signos de puntuación
+\ 	Si se indica 0 NIVEL elegir un nivel aleatorio entre 1 y 9
+\	Al iniciar el juego de forma predeterminada, sin indicar el nivel, el nivel será 1.
+
+\ Nuevo en v1.4:
+\ 	DEFINIR MAYOR-MENOR para usar en HINT.
+
+\ Nuevo en v1.3:
+\ 	En SHOW-CORRECTO si lo adivina a la primera mostrar "intento" en vez de "intentos".
+\ 	En HINT mostrar los dos últimos números y si eran mayor o menor.
+
+\ ( 
+\ 1- Al INICIAR el juego sacar un número aleatorio entre el 1 y el 100 ambos incluidos.
+\ 2- Indicar el número seguido de GUESS o ADIVINA
+\ 3- Mostrar si el número en correcto, mayor o menor.
+\ 4- HINT o PISTA mostrará los 2 últimos números y si eran mayor o menor.
+\ 5- Se podría ampliar para mostrar todos los números introducidos (en un array).
+\ 6- En este caso se podría usar PISTAS / HINTS indicando cuántos números mostrar.
+\ 7- Para ver la solución RESUELVE, ME-RINDO o GIVE-UP.
+\ 8- HELP Muestra las palabras que se pueden usar.
+\ )
+
