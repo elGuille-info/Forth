@@ -1,4 +1,4 @@
-# Forth
+# Forth programming language
 Ejemplos y trucos utilizando el lenguaje de programación Forth
 
 Aquí te pondré algunas cosas relacionadas con el lenguaje Forth.
