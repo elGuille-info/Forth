@@ -7,9 +7,20 @@ Aquí te pondré algunas cosas relacionadas con el lenguaje Forth.
 
 Por ahora tengo un par de juegos:
 
-[Adivina-Forth](https://github.com/elGuille-info/Adivina-FORTH)
+[Adivina Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/adivina-forth)
 
 [Digits-Forth](https://github.com/elGuille-info/DIGITS-FORTH)
+
+<br>
+
+**Nota**
+>
+> Estos son los enlaces a los repositorios originales (puede que los elimine).
+> 
+> [Adivina-Forth](https://github.com/elGuille-info/Adivina-FORTH)
+> 
+> [Digits-Forth](https://github.com/elGuille-info/DIGITS-FORTH)
+
 
 <br>
 
