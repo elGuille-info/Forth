@@ -9,7 +9,7 @@ Por ahora tengo un par de juegos:
 
 [Adivina Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/adivina-forth)
 
-[Digits-Forth](https://github.com/elGuille-info/DIGITS-FORTH)
+[Digits-Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/digits-forth)
 
 <br>
 
