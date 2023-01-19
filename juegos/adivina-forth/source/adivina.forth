@@ -5,7 +5,7 @@ Para usar otras versiones:
 adivina-versiones\adivina-v1.195.forth
 
 Usando la carpeta nueva, 19-ene-2023 17.52
-include \Forth-programming-language\juegos\adivina-forth\source\adivina.forth
+include Forth-programming-language\juegos\adivina-forth\source\adivina.forth
 )
 
 \ Marcar que se han cargado las palabras, 05-ene-2023 18.12
