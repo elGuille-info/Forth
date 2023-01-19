@@ -264,13 +264,16 @@ create palabras
 : mostrar-null-array ?array. ;
 
 : prueba-array-palabras
+    cr
     cr ." Usando las definidas con palabras:" cr
     cr ." Todas las palabras:"
     mostrar-palabras cr
+    cr ." La palabra con índice 3: " 3 palabras. cr
     
     cr ." Usando las definidas con ?array:" cr
     cr ." Todas las palabras:"
     palabras ?array. cr
+    cr ." La palabra con índice 3: " palabras 3 n?array. cr
 ;
 
 ( Esto no funciona bien...
