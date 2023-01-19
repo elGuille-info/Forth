@@ -98,9 +98,17 @@ RESPUESTA MAX_RESP BLANK
     RESPUESTA MAX_RESP
     CONTINUAR?
     CR
-    ." Has contestado "
-    IF ." sí." ELSE ." que no." THEN CR
-    ." La respuesta es: '" RESPUESTA. ." '" CR
+    ." Tu respuesta ha sido: '" RESPUESTA. ." '" CR
+    IF
+        ." Empieza por 'S', por tanto, has contestado que sí."
+    ELSE
+        ." No empieza por 'S', por tanto, has contestado que no."
+        ." 
+    THEN
+    
+    \ ." Has contestado "
+    \ IF ." sí." ELSE ." que no." THEN CR
+    \ ." La respuesta es: '" RESPUESTA. ." '" CR
 ;
 
 : prueba-pregunta
