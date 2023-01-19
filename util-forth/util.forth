@@ -41,6 +41,13 @@ FALSE VALUE ESGFORTH?
 ;
 ES-GFORTH?
 
+\ Copia la primera cadena en la segunda, 19-ene-2023 20.32
+\   se indican los caracteres a limpiar de la segunda dirección
+\ Ej. s" Hola!" <variable definida con max allot> <max> place-blank
+: PLACE-BLANK   ( addr1 len1 addr2 max2 -- )
+    2DUP BLANK DROP OVER OVER C! CHAR+ 1- SWAP MOVE
+;
+
 [UNDEFINED] between [IF]
 : between within ;
 [THEN]

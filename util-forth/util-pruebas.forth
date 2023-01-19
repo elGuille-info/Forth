@@ -30,11 +30,16 @@ RESPUESTA MAX_RESP BLANK
 \ Mostrar el contenido de RESPUESTA
 : RESPUESTA.   ( -- ) 'RESPUESTA TYPE ;
 \ Asignar el contenido de una cadena en RESPUESTA
-: RESPUESTA!   ( addr len -- ) 'RESPUESTA >LIMPIAR RESPUESTA SWAP MOVE ;
+\ : RESPUESTA!   ( addr len -- ) 'RESPUESTA >LIMPIAR RESPUESTA SWAP MOVE ;
+\ Usando place-blank
+: RESPUESTA!   ( addr len -- ) RESPUESTA MAX_RESP PLACE-BLANK ;
 \ La longitud actual de RESPUESTA
 : RESPUESTA-LEN   ( -- len ) 'RESPUESTA SWAP DROP ;
 \ Limpiar el contenido de RESPUESTA con espacios
-: RESPUESTA-LIMPIAR   ( -- ) 'RESPUESTA BLANK ;
+\ : RESPUESTA-LIMPIAR   ( -- ) 'RESPUESTA BLANK ;
+\ Limpiar todo el contenido
+: RESPUESTA-LIMPIAR   ( -- ) RESPUESTA MAX_RESP BLANK ;
+
 
 \ Pide un número
 \   addr1 len1 el texto a mostrar
@@ -253,7 +258,7 @@ create palabras
 ;
 
 
-( Esto no vale...
+( Esto no funciona bien...
 
 create palabras1
     s" palabra1-0" ,
@@ -300,6 +305,65 @@ create palabras2
     dup null-len2 0 do CR I 2 U.R ."  - " dup I null-array2. loop
 ;
 )
+
+\ De startend.4th
+: starts? dup >r 2over r> min compare 0= ;
+: ends? dup >r 2over dup r> - 0 max /string compare 0= ;
+
+\ Comprobar si una cadena empieza y/o termina por otra,
+\   se distinguen mayúsculas de minúsculas
+\ addr1 len1 la palabra a comprobar
+\ addr2 len2 la palabra para si empieza y/o termina
+: startend?   ( addr1 len1 addr2 len2 -- )
+    2>r
+    2dup CR ." La palabra '" type ." '"
+    cr ."    "
+    2dup
+    2r@ starts? if ." sí" else ." no" then ."  empieza por '" 2r@ type ." '"
+    cr ."    "
+    2dup
+    2r@ ends? if ." sí" else ." no" then ."  termina por '" 2r> type ." '"
+;
+
+: prueba-startend   s" hola radi-hola" s" hola" startend? ;
+
+s" Ola ola" s" ola" startend?
+
+: PLACE2   ( addr1 len1 addr2 -- ) OVER OVER C! CHAR+ 1- SWAP MOVE ;
+: PLACE1   ( addr1 len1 addr2 max2 -- ) 2dup blank drop OVER OVER C! CHAR+ 1- SWAP MOVE ;
+: PLACE1b   ( addr1 len1 addr2 addr2 max2 -- ) blank OVER OVER C! CHAR+ 1- SWAP MOVE ;
+
+\ Definida en util.forth, 19-ene-2023 20.32
+\ copia la primera cadena en la segunda,
+\   se indican los caracteres a limpiar de la segunda dirección
+\ : PLACE-BLANK   ( addr1 len1 addr2 max2 -- ) 2dup blank drop OVER OVER C! CHAR+ 1- SWAP MOVE ;
+
+\ la definición de gForth
+\ : place   ( addr1 len1 addr2 -- ) over >r rot over 1+ r> move c! ;
+: place3   ( addr1 len1 addr2 -- ) over >r rot over r> move 1- c! ;
+
+: prueba-place
+    respuesta-limpiar
+    s" hola radiola!" respuesta 1- place
+    cr respuesta.
+    respuesta-limpiar
+    s" hola radiola" respuesta place2
+    cr respuesta.
+    \ s" hola radiola" respuesta place3
+    \ cr respuesta.
+    respuesta-limpiar
+    s" helou!" respuesta place2
+    cr respuesta.
+    
+    s" Ole y Olé!" respuesta respuesta max_resp place1b
+    cr respuesta.
+    s" Hola!" respuesta max_resp place1
+    cr respuesta.
+    s" Olé!" respuesta max_resp place-blank
+    cr respuesta.
+    s" Helou!" respuesta!
+    cr respuesta.
+;
 
 (
 include util-pruebas.forth
