@@ -208,7 +208,10 @@ create palabras
     r>
 ;
 
-: null-array>s   ( addr index -- )
+\ La dirección de memoria del índice de un array acabado en null
+\   addr la dirección de memoria del array acabado en null
+\   index el índice que queremos mostrar
+: null-array>s   ( addr index -- addr1 len1 )
     \ intercambiar los valores y guardar la dirección
     swap >r
     \ no pasar del máximo de palabras
@@ -220,10 +223,14 @@ create palabras
     @ count
 ;
 
+\ Muestra el contenido del índice indicado de un array acabado en null
+\   addr la dirección de memoria del array acabado en null
+\   index el índice que queremos mostrar
 : null-array.   ( addr index -- )
     null-array>s type
 ;
 
+\ Muestra el contenido de un array acabado en null
 : mostrar-null-array   ( addr -- )
     dup null-len 0 do CR I 2 U.R ."  - " dup I null-array. loop
 ;
