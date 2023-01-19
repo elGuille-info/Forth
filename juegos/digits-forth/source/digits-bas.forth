@@ -3,6 +3,9 @@
     de la carpeta 4th\apps\basic\digits.bas
 
 include digits-bas.forth
+
+Usando la carpeta nueva, 19-ene-2023 17.52
+include Forth-programming-language\juegos\digits-forth\source\digits-bas.forth
 )
 
 \ Marcar que se han cargado las palabras
