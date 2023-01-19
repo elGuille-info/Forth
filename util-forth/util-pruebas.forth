@@ -5,6 +5,15 @@
 \ Para cargar este fichero en una plicación de Forth:
 \ include util-pruebas.forth
 \
+\ Usando la nueva ubicación, 19-ene-2023 18.10
+\ include Forth-programming-language\util-forth\util-pruebas.forth
+\
+
+\ Marcar que se han cargado estas palabras, 17-ene-2023 12.56
+[DEFINED] util-pruebas.forth [IF]
+    util-pruebas.forth
+[THEN]
+marker util-pruebas.forth
 
 \ Cargar las palabras definidas en util.forth
 include util.forth

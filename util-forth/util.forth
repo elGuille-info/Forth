@@ -7,11 +7,12 @@
 \ include util.forth
 \
 
-\ Marcar que se han cargado estas palabras, 17-ene-2023 12.56
-[DEFINED] util.forth [IF]
-    util.forth
-[THEN]
-marker util.forth
+\ No marcar esta, ya que se incluye desde otra principal, 19-ene-2023 18.05
+\ \ Marcar que se han cargado estas palabras, 17-ene-2023 12.56
+\ [DEFINED] util.forth [IF]
+\     util.forth
+\ [THEN]
+\ marker util.forth
 
 \ Añado definiciones para MAX-N y NULL. 19-ene-2023
 \ De easy.4th
