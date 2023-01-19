@@ -217,46 +217,61 @@ create palabras
     palabras-len 0 do CR I 2 U.R ."  - " I palabras. loop
 ;
 
+\ Defino estas palabras en util-forth, 19-ene-2023 20.52
+\   pero las palabras que no empiezan por null
 \ Saber los elementos del array indicado
 \   El array debe estar acabado con NULL
-: NULL-LEN   ( addr -- n )
-    0 >r
-    begin
-        dup @ null =
-        if drop false else r> 1+ >r true then
-    while
-        cell+
-    repeat
-    r>
-;
+\ : ?ARRAY-LEN   ( addr -- n )
+\     0 >r
+\     begin
+\         dup @ null =
+\         if drop false else r> 1+ >r true then
+\     while
+\         cell+
+\     repeat
+\     r>
+\ ;
+: NULL-LEN   ?array-len ;
 
 \ La dirección de memoria del índice de un array acabado en null
 \   addr la dirección de memoria del array acabado en null
 \   index el índice que queremos mostrar
-: null-array>s   ( addr index -- addr1 len1 )
-    \ intercambiar los valores y guardar la dirección
-    swap >r
-    \ no pasar del máximo de palabras
-    dup 0< if drop 0 then r@ null-len 1- min
-    \ poner la dirección intercambiar los valores
-    r> swap
-    0 ?do cell+ loop
-    \ dup 0> IF 0 do cell+ loop else drop then
-    @ count
-;
+\ : N?ARRAY>S   ( addr index -- addr1 len1 )
+\     \ intercambiar los valores y guardar la dirección
+\     swap >r
+\     \ no pasar del máximo de palabras
+\     dup 0< if drop 0 then r@ null-len 1- min
+\     \ poner la dirección intercambiar los valores
+\     r> swap
+\     0 ?do cell+ loop
+\     \ dup 0> IF 0 do cell+ loop else drop then
+\     @ count
+\ ;
+: null-array>s n?array>s ;
 
 \ Muestra el contenido del índice indicado de un array acabado en null
 \   addr la dirección de memoria del array acabado en null
 \   index el índice que queremos mostrar
-: null-array.   ( addr index -- )
-    null-array>s type
-;
+\ : N?ARRAY.   ( addr index -- )
+\     null-array>s type
+\ ;
+: null-array. n?array. ;
 
 \ Muestra el contenido de un array acabado en null
-: mostrar-null-array   ( addr -- )
-    dup null-len 0 do CR I 2 U.R ."  - " dup I null-array. loop
-;
+\ : ?ARRAY.   ( addr -- )
+\     dup null-len 0 do CR I 2 U.R ."  - " dup I null-array. loop
+\ ;
+: mostrar-null-array ?array. ;
 
+: prueba-array-palabras
+    cr ." Usando las definidas con palabras:" cr
+    cr ." Todas las palabras:"
+    mostrar-palabras cr
+    
+    cr ." Usando las definidas con ?array:" cr
+    cr ." Todas las palabras:"
+    palabras ?array. cr
+;
 
 ( Esto no funciona bien...
 
@@ -316,18 +331,22 @@ create palabras2
 \ addr2 len2 la palabra para si empieza y/o termina
 : startend?   ( addr1 len1 addr2 len2 -- )
     2>r
-    2dup CR ." La palabra '" type ." '"
+    \ 2dup 
+    CR ." La palabra '" type ." '"
     cr ."    "
-    2dup
+    \ 2dup
     2r@ starts? if ." sí" else ." no" then ."  empieza por '" 2r@ type ." '"
     cr ."    "
-    2dup
+    \ 2dup
     2r@ ends? if ." sí" else ." no" then ."  termina por '" 2r> type ." '"
 ;
 
-: prueba-startend   s" hola radi-hola" s" hola" startend? ;
+: prueba-startend
+    s" hola radi-hola" s" hola" startend?
+    s" Ola ola" s" ola" startend? 
+    cr .s
+;
 
-s" Ola ola" s" ola" startend?
 
 : PLACE2   ( addr1 len1 addr2 -- ) OVER OVER C! CHAR+ 1- SWAP MOVE ;
 : PLACE1   ( addr1 len1 addr2 max2 -- ) 2dup blank drop OVER OVER C! CHAR+ 1- SWAP MOVE ;

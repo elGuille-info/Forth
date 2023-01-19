@@ -14,6 +14,19 @@
 \ [THEN]
 \ marker util.forth
 
+\ v1.215 para mostrar o no los mensajes de depuración
+\ Debug? ya está definido en gforth
+VARIABLE ESDEBUG? TRUE ESDEBUG? !
+
+\ para facilitar la búsqueda de donde se muestran comentarios
+: DEBUG1   ( addr len -- ) ESDEBUG? @ IF CR ." >>> " TYPE .s ELSE 2DROP THEN ;
+: DEBUG2   ( addr1 len1 addr2 len2 -- ) 
+    ESDEBUG? @ 
+    IF CR 2SWAP ." >>> " TYPE ." '" TYPE ." ' " .s 
+    ELSE 2DROP 2DROP
+    THEN
+;
+
 \ Añado definiciones para MAX-N y NULL. 19-ene-2023
 \ De easy.4th
 \ S" MAX-N" ENVIRONMENT?                 \ query environment
@@ -47,6 +60,52 @@ ES-GFORTH?
 : PLACE-BLANK   ( addr1 len1 addr2 max2 -- )
     2DUP BLANK DROP OVER OVER C! CHAR+ 1- SWAP MOVE
 ;
+
+
+\ Para manipular arrays definidas con $" que acaban con NULL, 19-ene-2023 20.56
+
+\ Saber los elementos del array indicado
+\   El array debe estar acabado con NULL
+: ?ARRAY-LEN   ( addr -- n )
+    0 >r
+    begin
+        dup @ null =
+        if drop false else r> 1+ >r true then
+    while
+        cell+
+    repeat
+    r>
+;
+
+\ La dirección de memoria del índice de un array acabado en null
+\   addr la dirección de memoria del array acabado en null
+\   index el índice que queremos mostrar
+: N?ARRAY>S   ( addr index -- addr1 len1 )
+    \ intercambiar los valores y guardar la dirección
+    swap >r
+    \ no pasar del máximo de palabras
+    dup 0< if drop 0 then r@ ?array-len 1- min
+    \ poner la dirección intercambiar los valores
+    r> swap
+    0 ?do cell+ loop
+    \ dup 0> IF 0 do cell+ loop else drop then
+    @ count
+;
+
+\ Muestra el contenido del índice indicado de un array acabado en null
+\   addr la dirección de memoria del array acabado en null
+\   index el índice que queremos mostrar
+: N?ARRAY.   ( addr index -- )
+    n?array>s type
+;
+
+\ Muestra el contenido de un array acabado en null
+: ?ARRAY.   ( addr -- )
+    dup ?array-len 0 do CR I 2 U.R ."  - " dup I n?array. loop
+    drop
+    \ s" al salir de ?array. " debug1
+;
+
 
 [UNDEFINED] between [IF]
 : between within ;
@@ -288,18 +347,6 @@ VARIABLE NEXT-STRING          0 NEXT-STRING !
 \   solo se limpian los caracteres indicados
 : >LIMPIAR   ( addr len -- ) BLANK ;
 
-\ v1.215 para mostrar o no los mensajes de depuración
-\ Debug? ya está definido en gforth
-VARIABLE ESDEBUG? TRUE ESDEBUG? !
-
-\ para facilitar la búsqueda de donde se muestran comentarios
-: DEBUG1   ( addr len -- ) ESDEBUG? @ IF CR ." >>> " TYPE .s ELSE 2DROP THEN ;
-: DEBUG2   ( addr1 len1 addr2 len2 -- ) 
-    ESDEBUG? @ 
-    IF CR 2SWAP ." >>> " TYPE ." '" TYPE ." ' " .s 
-    ELSE 2DROP 2DROP
-    THEN
-;
 
 \ Convertir el contenido de la dirección indicada en mayúsculas, 17-ene-2023 11.44
 : >MAYUSCULAS   ( addr len -- ) BOUNDS ?DO I c@ toupper I c! LOOP ;
