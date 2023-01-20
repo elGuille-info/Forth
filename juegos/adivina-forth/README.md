@@ -20,4 +20,4 @@ Aquí tienes [el historial de revisiones](adivina-versiones/adivina-versiones.tx
 <br>
 
 Iniciado el 25-dic-2022<br>
-Última actualización v1.274 del 17-ene-2023
+Última actualización v1.275 del 20-ene-2023
