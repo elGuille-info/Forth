@@ -1,6 +1,10 @@
-# El código para FORTH
+# El código para FORTH de digits-bas.forth
 
-Y las copias de las versiones/modificaciones anteriores.
+El código está probado tanto con gForth como con SwiftForth.
+
+<br>
+
+Aquí también están las copias de las versiones/modificaciones anteriores.
 
 <br>
 
