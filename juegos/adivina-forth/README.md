@@ -15,9 +15,9 @@ El directorio **source** tiene el código principal y otro con las utilidades de
 
 En el directorio **adivina-versiones** están las versiones que he ido haciendo del juego. 
 <br>
-Aquí tienes [el historial de revisiones](adivina-versiones/adivina-versiones.txt).
+Aquí tienes [el historial de revisiones](source/adivina-versiones/adivina-versiones.txt).
 
 <br>
 
 Iniciado el 25-dic-2022<br>
-Última actualización v1.274 del 17-ene-2023
+Última actualización v1.275 del 20-ene-2023
