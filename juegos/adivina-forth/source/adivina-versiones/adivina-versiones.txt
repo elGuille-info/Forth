@@ -1,6 +1,11 @@
 Los cambios en el programa
 ===========================
 
+\ v1.275 (20-ene-2023 08.05)
+\   Defino $AYUDAS usando elarray acabado en NULL.
+\   Uso el fichero util.forth según los directorios en GitHub.
+\       https://github.com/elGuille-info/Forth-programming-language
+
 \ v1.274 (17-ene-2023 17.46)
 \   Uso el fichero util.forth con la definición de las palabras de uso general a usar.
 \   Debug1 y debu2 las pongo en util.forth.
