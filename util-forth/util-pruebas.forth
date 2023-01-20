@@ -350,10 +350,11 @@ create palabras2
     cr .s
 ;
 
-
-: PLACE2   ( addr1 len1 addr2 -- ) OVER OVER C! CHAR+ 1- SWAP MOVE ;
-: PLACE1   ( addr1 len1 addr2 max2 -- ) 2dup blank drop OVER OVER C! CHAR+ 1- SWAP MOVE ;
-: PLACE1b   ( addr1 len1 addr2 addr2 max2 -- ) blank OVER OVER C! CHAR+ 1- SWAP MOVE ;
+\ La definición de easy.4th
+: PLACE4th   ( addr1 len1 addr2 -- ) OVER OVER C! CHAR+ SWAP MOVE ;
+: PLACE2     ( addr1 len1 addr2 -- ) OVER OVER C! CHAR+ 1- SWAP MOVE ;
+: PLACE1     ( addr1 len1 addr2 max2 -- ) 2dup blank drop OVER OVER C! CHAR+ 1- SWAP MOVE ;
+: PLACE1b    ( addr1 len1 addr2 addr2 max2 -- ) blank OVER OVER C! CHAR+ 1- SWAP MOVE ;
 
 \ Definida en util.forth, 19-ene-2023 20.32
 \ copia la primera cadena en la segunda,
