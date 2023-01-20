@@ -8,6 +8,8 @@ Usando la carpeta nueva, 19-ene-2023 17.52
 include Forth-programming-language\juegos\digits-forth\source\digits-bas.forth
 )
 
+: VERSION-DIGITS   ( -- ) ." *** Digits Forth v1.10 (20-ene-2023 08.53) *** " ;
+
 \ Marcar que se han cargado las palabras
 [DEFINED] digits-bas.forth [IF]
     digits-bas.forth
@@ -15,9 +17,9 @@ include Forth-programming-language\juegos\digits-forth\source\digits-bas.forth
 marker digits-bas.forth
 
 \ Algunas palabras genéricas
-include util.forth
-
-: VERSION-DIGITS   ( -- ) ." *** Digits Forth v1.9 (18-ene-2023 09.37) *** " ;
+\ include util.forth
+\ Usar las definidas en la carpeta del directorio de github, 20-ene-2023 08.53 
+include ..\..\..\util-forth\util.forth
 
 \ Así se deben definir las cadenas
 \ El tamaño máximo depende de cuántos caracteres queramos almacenar
