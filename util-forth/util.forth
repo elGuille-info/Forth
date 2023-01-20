@@ -192,7 +192,8 @@ $10450405 Constant generator
 \ v1.240 Lo vuelvo a usar para compatibilidad con SwiftForth
 \ (02-ene-2023 22.26)
 \ Para poder crear arrays de cadenas con $"
-4096 constant /string-space
+\ Más espacio para las cadenas, 20-ene-2023 18.03
+4096 3 * constant /string-space
 
 ( Reserve  STRING-SPACE  in data-space. )
 CREATE STRING-SPACE           /STRING-SPACE CHARS ALLOT
