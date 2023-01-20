@@ -15,7 +15,7 @@ El directorio **source** tiene el código principal y otro con las utilidades de
 
 En el directorio **adivina-versiones** están las versiones que he ido haciendo del juego. 
 <br>
-Aquí tienes [el historial de revisiones](adivina-versiones/adivina-versiones.txt).
+Aquí tienes [el historial de revisiones](source/adivina-versiones/adivina-versiones.txt).
 
 <br>
 
