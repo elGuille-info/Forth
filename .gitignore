@@ -1,0 +1,5 @@
+# extensiones a no tener en cuenta
+*.backup
+*.zip
+*.rar
+*.lnk
