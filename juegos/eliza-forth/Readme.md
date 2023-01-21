@@ -15,7 +15,8 @@ Este programa está convertido o adaptado del publicado por J.L. Bezemer (Eliza.
 >
 > El la web he encontrado una [página de Eliza de Tim Hartnell en archive.org](https://archive.org/details/elizath.qb64), pero el código que he visto no es el original que yo tengo.
 >
-> Yo tengo otro creado en el año 1998 y hecho en Visual Basic en el que la forma de definir las palabras a usar estaba basado en una versión de [Eliza para Prolog de Viren Patel](http://www-poleia.lip6.fr/~zucker/Teaching/DESS-EA/eliza.pro).
+> Yo tengo otro creado en mayo del año 1998 y hecho en Visual Basic (actualizado por última vez en septiembre de 2002 para Visual Basic 6 sp5) en el que la forma de definir las palabras a usar estaba basado en una versión de [Eliza para Prolog de Viren Patel](http://www-poleia.lip6.fr/~zucker/Teaching/DESS-EA/eliza.pro).<br>
+> En las palabras usadas y otras ideas colaboró conmigo Svetlana (DEP).
 >
 
 <br>
