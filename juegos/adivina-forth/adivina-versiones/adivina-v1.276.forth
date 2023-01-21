@@ -18,6 +18,7 @@ marker adivina.forth
 : VERSION-ADIVINA   ." *** Adivina Forth v1.276 (21-ene-2023 14.24) *** " ;
 
 \ v1.276 (21-ene-2023 14.24)
+\   Falla al usar la nueva versión de random.
 \   Cambio la estructura de los directorios.
 
 \ v1.275 (20-ene-2023 08.05)
