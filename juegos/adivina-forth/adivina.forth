@@ -15,9 +15,13 @@ include Forth-programming-language\juegos\adivina-forth\adivina.forth
 marker adivina.forth
 
 \ Adivinar un número
-: VERSION-ADIVINA   ." *** Adivina Forth v1.276 (21-ene-2023 14.24) *** " ;
+: VERSION-ADIVINA   ." *** Adivina Forth v1.277 (21-ene-2023 14.27) *** " ;
+
+\ v1.277 (21-ene-2023 14.27)
+\   En util.forth dejo las definiciones anteriores de random, etc.
 
 \ v1.276 (21-ene-2023 14.24)
+\   Falla al usar la nueva versión de random.
 \   Cambio la estructura de los directorios.
 
 \ v1.275 (20-ene-2023 08.05)
