@@ -1,6 +1,13 @@
 Los cambios en el programa
 ===========================
 
+\ v1.277 (21-ene-2023 14.27)
+\   En util.forth dejo las definiciones anteriores de random, etc.
+
+\ v1.276 (21-ene-2023 14.24)
+\   Falla al usar la nueva versión de random.
+\   Cambio la estructura de los directorios.
+
 \ v1.275 (20-ene-2023 08.05)
 \   Defino $AYUDAS usando elarray acabado en NULL.
 \   Uso el fichero util.forth según los directorios en GitHub.
