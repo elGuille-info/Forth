@@ -5,7 +5,9 @@ Aquí te pondré algunas cosas relacionadas con el lenguaje Forth.
 
 <br>
 
-Por ahora tengo un par de juegos:
+Por ahora tengo tres juegos:
+
+[Eliza Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/eliza-forth)
 
 [Adivina Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/adivina-forth)
 
