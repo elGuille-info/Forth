@@ -61,3 +61,26 @@ Para mas informacion e implementaciones populares de Forth ver:
    Starting FORTH (tutorial de Leo Brodie)  https://www.forth.com/starting-forth/
        Este es el que he usado yo para empaparme de Forth.
 ```
+
+<br>
+
+> **NOTA:** 
+> 
+> El fichero **util.forth** se carga con los ficheros aquí incluidos (evidentemente salvo el propio util.forth).<br>
+> En algunos casos, como en **eliza.forth**, he redefinido algunas de las palabras de util.forth para garantizar el funcionamiento,
+> ya que las definiciones originales no son 100% compatibles con las de util.forth. <br>
+> 
+> Es posible que no siempre se utilicen las palabras de util.forth, pero como las suelo cargar desde esos _programas_ mantengo una copia
+> de los mismos en las carpetas de cada juego/proyecto.<br>
+> 
+> De forma predeterminada el acceso a util.forth se hace usando la estructura de directorios de GitHub, pero en el código de cada programa,
+> pongo también cómo incluirlo si lo mantienes en el mismo directorio del programa, de esa forma te resultará más fácil usarlo sin necesidad
+> de crear toda la estructura de estos directorios. <br>
+> 
+> Igualmente intento, en la medida de lo posible, mantener una copia actualizada (y probada) en cada directorio de cada programa
+> pero si ves que se me ha olvidado, siempre puedes descargar el que está en la carpeta **util-forth**.
+
+<br>
+
+Actualizado por Guillermo Som (Guille) el 21 de enero de 2023.
+
