@@ -17,55 +17,12 @@ cr ." cargando el fichero eliza.forth ..." cr cr
 [THEN]
 marker eliza-en.forth
 
-: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.14 (21-ene-2023 14.31) *** " ;
+: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.15 (21-ene-2023 14.48) *** " ;
 
-\ v1.14 (21-ene-2023 14.31)
-\   Defino aquí todo lo relacionado con random, ya que en adivina.forth no funciona bien.
-
-\ v1.13 (21-ene-2023 13.56)
-\   Lo muevo a la carpeta de forth-programming-language\juegos\eliza-forth
-\       para publicarlo en GitHub
-
-\ v1.12 (21-ene-2023 13.51)
-\   Le cambio el nombre a eliza-en.forth para indicar que es en inglés.
-
-\ v1.11 (21-ene-2023 12.41)
-\   Utilizo la versión original de get-answer aunque algunas veces falla
-\   Utilizo la versión de get-answer que usa el bucle do para buscar la palabra
-\   Quito los comentarios debug y el código que ya no es necesario.
-
-\ v1.10 (21-ene-2023 12.35)
-\   Defino random, etc en util.forth basado en random.4th
-\       A ver si así choose funciona bien.
-\       Parece que sí, que todo estaba en que CHOOSE no elegía adecuadamente el número aleatorio.
-
-\ v1.9 (21-ene-2023 10.05)
-\   Comprobar cómo se mira lo que dice el usuario.
-
-\ v1.8 (20-ene-2023 20.44)
-\   Lo dejo... habrá que buscar mejor... 22.53
-\   A ver si consigo algo...
-
-\ v1.7 (20-ene-2023 19.43)
-\   Defino 'keywords para acceder a las respuestas relacionadas con
-\       la palabra encontrada en keywords.
-\   Defino current-blank y lo llamo en conversation antes de response.
-
-\ v1.6 (20-ene-2023 19.12)
-\   Utilizo la definición original de s@
-
-\ v1.5 (20-ene-2023 18.05)
-\   He definido ," según easy.4th para que funcione bien.
-\       Se ve que la definición de ," de gForth no era la misma que la de 4th.
-
-\ v1.4 (20-ene-2023 13.28)
-\   Creo palabras de prueba para acceder a las definiciones, etc.
-
-\ v1.3 (20-ene-2023 12.45)
-\   Quito los nombres: string-eliza, current-eliza y previous-eliza
-\   y dejo los originales: string, current y previous
-
-\ v1.0 (18-ene-2023 17.30)
+\ v1.15 (21-ene-2023 14.48)
+\   Quito el comentario de debug1 de conjugate.
+\   Quito los cambios realizados en versiones anteriores,
+\       siguen estando en la versión anterior.
 
 
 \ 4tH ELIZA - Copyright 2004,2014 J.L. Bezemer
@@ -1013,7 +970,7 @@ create conjugations
 \ replace ME by YOU, etc. It returns the conjugated sentence.
 
 : conjugate                            ( a1 -- a1 n3)
-  s" al entrar en conjugate " debug1
+  \ s" al entrar en conjugate " debug1
   dup count                            ( a1 a1 n)
   begin                                ( a1 a1 n)
     dup                                ( a1 a1 n1 f)
