@@ -21,8 +21,8 @@ La carpeta util-forth tiene las definiciones de palabras de uso general (y un fi
 
 **Nota**
 >
-> Estos son los enlaces a los repositorios originales (puede que los elimine).
-> Los he puesto de solo lectura.
+> Estos son los enlaces a los repositorios originales (puede que los elimine).<br>
+> Los he puesto de solo lectura.<br>
 > 
 > [Adivina-Forth](https://github.com/elGuille-info/Adivina-FORTH)
 > 
