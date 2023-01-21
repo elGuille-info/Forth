@@ -7,8 +7,8 @@
 \ include util.forth
 \
 
-\ 21-ene-2023 12.31
-\   Redefino random, etc. usando (o casi) las definiciones de random.4th
+\ 21-ene-2023 14.37
+\ Dejo las definiciones anteriores de random, etc.
 
 
 \ No marcar esta, ya que se incluye desde otra principal, 19-ene-2023 18.05
@@ -127,24 +127,26 @@ ES-GFORTH?
 
 \ Para los números aleatorios
 
+\ Dejo las definiciones anteriores, 21-ene-2023 14.37
+
 \ Adaptado del fichero "C:\Program Files (x86)\gforth\tt.fs"
-\ variable seed
-\ \ time&date pone en la pila s m h d M y 
-\ : randomize   time&date + + + + + seed ! ;
-\ $10450405 Constant generator
-\ : rnd  ( -- n )  seed @ generator um* drop 1+ dup seed ! ;
-\ : random ( n -- 0..n-1 )  rnd um* nip ;
+variable seed
+\ time&date pone en la pila s m h d M y 
+: randomize   time&date + + + + + seed ! ;
+$10450405 Constant generator
+: rnd  ( -- n )  seed @ generator um* drop 1+ dup seed ! ;
+: random ( n -- 0..n-1 )  rnd um* nip ;
 
 \ Adaptado de la definición de random.4th
-variable seed                         \ seed variable
-32767 constant max-rand               \ maximum random number
-                                      ( -- n)
-: (random) seed @ * + dup seed ! 16 rshift max-rand and ;
-: random 2531011 214013 (random) ;  ( -- n)
-\ time no existe en gForth
-\ : randomize time seed ! ;             ( -- )
-
-: randomize   time&date + + + + + seed ! ;
+\ variable seed                         \ seed variable
+\ 32767 constant max-rand               \ maximum random number
+\                                       ( -- n)
+\ : (random) seed @ * + dup seed ! 16 rshift max-rand and ;
+\ : random 2531011 214013 (random) ;  ( -- n)
+\ \ time no existe en gForth
+\ \ : randomize time seed ! ;             ( -- )
+\ 
+\ : randomize   time&date + + + + + seed ! ;
 
 \ v1.14 Un número aleatorio entre los dos indicados, ambos inclusive
 : random2   ( n1 n2 -- n1..n2 )
