@@ -5,7 +5,7 @@ Para usar otras versiones:
 adivina-versiones\adivina-v1.195.forth
 
 Usando la carpeta nueva, 19-ene-2023 17.52
-include Forth-programming-language\juegos\adivina-forth\source\adivina.forth
+include Forth-programming-language\juegos\adivina-forth\adivina.forth
 )
 
 \ Marcar que se han cargado las palabras, 05-ene-2023 18.12
@@ -15,7 +15,10 @@ include Forth-programming-language\juegos\adivina-forth\source\adivina.forth
 marker adivina.forth
 
 \ Adivinar un número
-: VERSION-ADIVINA   ." *** Adivina Forth v1.275 (20-ene-2023 08.05) *** " ;
+: VERSION-ADIVINA   ." *** Adivina Forth v1.276 (21-ene-2023 14.24) *** " ;
+
+\ v1.276 (21-ene-2023 14.24)
+\   Cambio la estructura de los directorios.
 
 \ v1.275 (20-ene-2023 08.05)
 \   Defino $AYUDAS usando elarray acabado en NULL.
@@ -84,7 +87,7 @@ marker adivina.forth
 \ Cargar las palabras definidas en util.forth, 17-ene-2023 17.48
 \ include util.forth
 \ Usar las definidas en la carpeta del directorio de github, 20-ene-2023 08.05 
-include ..\..\..\util-forth\util.forth
+include ..\..\util-forth\util.forth
 
 
 \ **************************************
