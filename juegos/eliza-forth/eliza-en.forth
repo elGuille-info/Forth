@@ -17,7 +17,10 @@ cr ." cargando el fichero eliza.forth ..." cr cr
 [THEN]
 marker eliza-en.forth
 
-: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.13 (21-ene-2023 13.56) *** " ;
+: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.14 (21-ene-2023 14.31) *** " ;
+
+\ v1.14 (21-ene-2023 14.31)
+\   Defino aquí todo lo relacionado con random, ya que en adivina.forth no funciona bien.
 
 \ v1.13 (21-ene-2023 13.56)
 \   Lo muevo a la carpeta de forth-programming-language\juegos\eliza-forth
@@ -90,6 +93,17 @@ include ./4th/lib/say.4th
 \ include util.forth
 \ include Forth-programming-language\util-forth\util.forth
 include ..\..\util-forth\util.forth
+
+\ Adaptado de la definición de random.4th
+variable seed                         \ seed variable
+32767 constant max-rand               \ maximum random number
+                                      ( -- n)
+: (random) seed @ * + dup seed ! 16 rshift max-rand and ;
+: random 2531011 214013 (random) ;  ( -- n)
+\ time no existe en gForth
+\ : randomize time seed ! ;             ( -- )
+
+: randomize   time&date + + + + + seed ! ;
 
 \ 4096 4 * constant /string-space
 
