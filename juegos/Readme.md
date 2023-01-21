@@ -8,6 +8,18 @@ Están probados tanto en gForth como en Swift-Forth.
 Los juegos son: <br>
 <br>
 
+**Eliza-forth** El programa de conversación ELIZA. <br>
+Basado en el código de 4th con las conversaciones en inglés. <br>
+
+<br>
+
+> **NOTA:** <br>
+> 
+> Puede que utilice el código (o las palabras) que tengo de una versión que hice para Visual Basic (clásico).<br>
+
+
+<br>
+
 **Adivina.forth** Tienes que adivinar un número en un número determinado de intentos. <br>
 Permite indicar el número de nivel del número a adivinar y el número de intentos.<br>
 Además de jugar para adivinar el número elegido por el ordenador, tiene un modo en que el propio ordenador debe adivinar el número (sin hacer trampas). <br>
