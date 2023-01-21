@@ -7,11 +7,11 @@ Aquí te pondré algunas cosas relacionadas con el lenguaje Forth.
 
 Por ahora tengo tres juegos:
 
-[Eliza Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/eliza-forth)
+- [Eliza Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/eliza-forth)
 
-[Adivina Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/adivina-forth)
+- [Adivina Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/adivina-forth)
 
-[Digits-Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/digits-forth)
+- [Digits-Forth](https://github.com/elGuille-info/Forth-programming-language/tree/main/juegos/digits-forth)
 
 <br>
 
@@ -45,6 +45,7 @@ Para mas informacion e implementaciones populares de Forth ver:
    Starting FORTH (tutorial de Leo Brodie)  https://www.forth.com/starting-forth/
        Este es el que he usado yo para empaparme de Forth.
 ```
+<br>
 
 <br>
 
