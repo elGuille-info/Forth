@@ -33,4 +33,4 @@ Mostrará los aciertos y si logra adivinar un tercio o más, el ordenador dirá 
 
 <br>
 
-Actualizado por Guillermo som (Guille), 20-ene-2023
+Actualizado por Guillermo som (Guille), 21-ene-2023
