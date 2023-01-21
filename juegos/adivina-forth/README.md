@@ -7,17 +7,22 @@ El código está probado en gForth y SwiftForth (evaluación)
 
 Tiene definiciones de palabras que te pueden ser de utilidad general, aparte de las variables, constantes y palabras para el propio juego.
 
-<br>
-
-El directorio **source** tiene el código principal y otro con las utilidades de forma separada y un fichero para probar las utilidades.
 
 <br>
 
 En el directorio **adivina-versiones** están las versiones que he ido haciendo del juego. 
 <br>
-Aquí tienes [el historial de revisiones](source/adivina-versiones/adivina-versiones.txt).
+Aquí tienes [el historial de revisiones](adivina-versiones/adivina-versiones.txt).
 
 <br>
 
-Iniciado el 25-dic-2022<br>
-Última actualización v1.275 del 20-ene-2023
+**NOTA:** <br>
+El fichero util.forth está aquí para facilitar el uso si cambias los directorios usados en GitHub, pero tendrás que cambiar la llamada **include** usada en el fichero principal. <br>
+El fichero original está en la carpeta **util-forth**.
+
+<br>
+
+Iniciado el 25-dic-2022 <br>
+Última actualización del 21-ene-2023 <br>
+
+
