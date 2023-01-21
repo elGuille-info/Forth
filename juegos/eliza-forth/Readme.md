@@ -1,0 +1,24 @@
+# Eliza para Forth
+
+El programa de conversación ELIZA.
+
+<br>
+
+Este programa está convertido o adaptado del publicado por J.L. Bezemer (Eliza.4th)
+
+<br>
+
+> **Notas:** <br>
+> Según parece, el original está a su vez adaptado de una versión para BASIC (se incluye en el directorio _otros_).
+>
+> En mis notas tengo que el autor del programa en BASIC es Tim Hartnell de un libro publicado por Anaya Multimedia llamado [Inteligencia artificial: conceptos y programas](https://trastero.speccy.org/cosas/Libros/Inteligencia_art.htm), aunque revisando ese libro no está el código que yo tengo en mis _archivos_, pero... si lo tengo así puesto en mi código, es que así sería ;-).
+>
+> El la web he encontrado una [página de Eliza de Tim Hartnell en archive.org](https://archive.org/details/elizath.qb64), pero el código que he visto no es el original que yo tengo.
+>
+> Yo tengo otro creado en el año 1998 y hecho en Visual Basic en el que la forma de definir las palabras a usar estaba basado en una versión de [Eliza para Prolog de Viren Patel](http://www-poleia.lip6.fr/~zucker/Teaching/DESS-EA/eliza.pro).
+>
+
+<br>
+
+
+Actualizado por Guillermo som (Guille), 21-ene-2023
