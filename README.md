@@ -15,11 +15,6 @@ Por ahora tengo tres juegos:
 
 <br>
 
-La carpeta util-forth tiene las definiciones de palabras de uso general (y un fichero con pruebas).
-
-
-<br>
-
 ## ¿Qué es Forth?
 
 ```
@@ -53,7 +48,7 @@ Para mas informacion e implementaciones populares de Forth ver:
 
 <br>
 
-> **Nota:** 
+> **Nota sobre util.forth:** 
 > 
 > El fichero **util.forth** se carga con los ficheros aquí incluidos (evidentemente salvo el propio util.forth).<br>
 > En algunos casos, como en **eliza.forth**, he redefinido algunas de las palabras de util.forth para garantizar el funcionamiento,
@@ -68,7 +63,10 @@ Para mas informacion e implementaciones populares de Forth ver:
 > 
 > Igualmente intento, en la medida de lo posible, mantener una copia actualizada (y probada) en cada directorio de cada programa
 > pero si ves que se me ha olvidado, siempre puedes descargar el que está en la carpeta **util-forth**.
+>
+> La carpeta util-forth tiene las definiciones de palabras de uso general (y un fichero/programa con pruebas).
 
+<br>
 
 <br>
 
