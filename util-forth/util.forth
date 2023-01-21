@@ -7,8 +7,8 @@
 \ include util.forth
 \
 
-\ 21-ene-2023 12.31
-\   Redefino random, etc. usando (o casi) las definiciones de random.4th
+\ 21-ene-2023 14.37
+\ Dejo las definiciones anteriores de random, etc.
 
 
 \ No marcar esta, ya que se incluye desde otra principal, 19-ene-2023 18.05
