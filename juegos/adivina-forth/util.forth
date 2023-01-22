@@ -47,16 +47,20 @@ CONSTANT MAX-N                         \ create constant MAX-N
 \ [THEN]
 MAX-N NEGATE 1- CONSTANT NULL            ( NULL pointer)
 
-
+[UNDEFINED] ESGFORTH? [IF]
 FALSE VALUE ESGFORTH?
-: ES-GFORTH?
-    s" gforth" environment?
-    0= 
-    if FALSE TO ESGFORTH?
-    else TRUE TO ESGFORTH? 2DROP
-    then
-;
-ES-GFORTH?
+s" gforth" environment?
+[IF] 2drop TRUE TO ESGFORTH?
+[THEN]
+\ : ES-GFORTH?
+\     s" gforth" environment?
+\     0= 
+\     if FALSE TO ESGFORTH?
+\     else TRUE TO ESGFORTH? 2DROP
+\     then
+\ ;
+\ ES-GFORTH?
+[THEN]
 
 \ Copia la primera cadena en la segunda, 19-ene-2023 20.32
 \   se indican los caracteres a limpiar de la segunda dirección
