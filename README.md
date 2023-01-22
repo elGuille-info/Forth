@@ -18,25 +18,25 @@ Por ahora tengo tres juegos:
 ## ¿Qué es Forth?
 
 ```
-Forth o FORTH es un lenguaje de programacion y un ambiente de programacion
+Forth o FORTH es un lenguaje de programación y un ambiente de programación
   para ordenadores inventado por Charles H. Moore en 1968 y usado en 1970
-  para controlar el telescopio de 30ft del National Radio Astronomy Observatory de Kitt Peak, Arizona.
-Inicialmente disenado para una aplicacion muy concreta, la astronomia
-  (calculo de trayectorias de cuerpos en orbita, cromatografias, analisis de espectros de emision),
-  ha evolucionado hasta ser aplicable a casi todos los demas campos relacionados o no con esa rama
-  de la ciencia (calculos de probabilidad, bases de datos, analisis estadisticos y hasta financieros).
-Forth es un lenguaje de programacion procedimental, estructurado, imperativo, reflexivo,
-  basado en pila y sin comprobacion de tipos.
-Una de sus importantes caracteristicas es la utilizacion de una pila de datos
+  para controlar el telescopio de 30ft (11 metros) del National Radio Astronomy Observatory de Kitt Peak, Arizona.
+Inicialmente diseñado para una aplicación muy concreta, la astronomía
+  (cálculo de trayectorias de cuerpos en órbita, cromatografías, análisis de espectros de emisión),
+  ha evolucionado hasta ser aplicable a casi todos los demás campos relacionados o no con esa rama
+  de la ciencia (cálculos de probabilidad, bases de datos, análisis estadisticos y hasta financieros).
+Forth es un lenguaje de programación procedimental, estructurado, imperativo, reflexivo,
+  basado en pila y sin comprobación de tipos.
+Una de sus importantes características es la utilización de una pila de datos
   para pasar los argumentos entre las palabras, que son los constituyentes de un programa en Forth.
-En Forth para el manejo de la pila se usa la notacion postfija (notacion polaca inversa)
-  de forma que para sumar dos numeros se escriba de esta forma: 3 2 +
-  Se ponen los numeros en la pila y despues se indica la operacion a realizar con esos numeros,
+En Forth para el manejo de la pila se usa la notación postfija (notación polaca inversa)
+  de forma que para sumar dos números se escriba de esta forma: 3 2 +
+  Se ponen los números en la pila y después se indica la operación a realizar con esos números,
     dejando en la pila el resultado.
-  Si queremos sumar 3+2 y el resultado multiplicarlo por 7 lo hariamos asi: 7 2 3 + *
-    Primero se suman 2+3 y el resultado (que estara en la pila) se multiplica por 7.
+  Si queremos sumar 3+2 y el resultado multiplicarlo por 7 lo haríamos así: 7 2 3 + *
+    Primero se suman 2+3 y el resultado (que estará en la pila) se multiplica por 7.
 
-Para mas informacion e implementaciones populares de Forth ver:
+Para mas información e implementaciones populares de Forth ver:
    Forth en Wikipedia                       https://es.wikipedia.org/wiki/Forth
    Forth Interest Group (FIG)               http://www.forth.org/
    Forth Standard                           https://forth-standard.org/
