@@ -8,7 +8,7 @@ Usando la carpeta nueva, 19-ene-2023 17.52
 include Forth-programming-language\juegos\digits-forth\digits-bas.forth
 )
 
-: VERSION-DIGITS   ( -- ) ." *** Digits Forth v1.11 (21-ene-2023 14.44) *** " ;
+: VERSION-DIGITS   ( -- ) ." *** Digits Forth v1.12 (22-ene-2023 08.57) *** " ;
 
 \ Marcar que se han cargado las palabras
 [DEFINED] digits-bas.forth [IF]
@@ -19,7 +19,12 @@ marker digits-bas.forth
 \ Algunas palabras genéricas
 \ include util.forth
 \ Usar las definidas en la carpeta del directorio de github, 20-ene-2023 08.53 
-include ..\..\util-forth\util.forth
+\ include ..\..\util-forth\util.forth
+
+s" gforth" environment?
+[IF] 2drop include ..\..\util-forth\util.forth
+[ELSE] include Forth-programming-language\util-forth\util.forth
+[THEN]
 
 \ Así se deben definir las cadenas
 \ El tamaño máximo depende de cuántos caracteres queramos almacenar
@@ -297,8 +302,12 @@ VARIABLE TERMINAR
 : prueba-input
     cr s" Escribe 1, 0 o X ? "
     INPUTN
-    \ DUP
-    CR ." Tu respuesta es: " .
+    DUP
+    no_num =
+    CR
+    if ." Tu respuesta no es un número."
+    else ." Tu respuesta es: " .
+    then
 ;
 
 CR CR ." Escribe DIGITS para jugar " CR

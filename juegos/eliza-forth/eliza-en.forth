@@ -17,7 +17,7 @@ cr ." cargando el fichero eliza.forth ..." cr cr
 [THEN]
 marker eliza-en.forth
 
-: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.15 (21-ene-2023 14.48) *** " ;
+: VERSION-ELIZA   ( -- ) ." *** Eliza Forth v1.16 (22-ene-2023 08.57) *** " ;
 
 \ v1.15 (21-ene-2023 14.48)
 \   Quito el comentario de debug1 de conjugate.
@@ -49,7 +49,11 @@ include ./4th/lib/say.4th
 \ Usando el definido en Forth-programming-language\util-forth, 20-ene-2023 10.13
 \ include util.forth
 \ include Forth-programming-language\util-forth\util.forth
-include ..\..\util-forth\util.forth
+\ include ..\..\util-forth\util.forth
+s" gforth" environment?
+[IF] 2drop include ..\..\util-forth\util.forth
+[ELSE] include Forth-programming-language\util-forth\util.forth
+[THEN]
 
 \ Adaptado de la definición de random.4th
 variable seed                         \ seed variable
@@ -140,6 +144,26 @@ CONSTANT MAX-N                         \ create constant MAX-N
   then
   r> drop r>
 ;
+
+\ En swiftForth no está definida insert, 22-ene-2023 09.10
+[UNDEFINED] insert [IF]
+\ la definición de gforth
+: insert rot over min >r i - over dup i + rot move r> move ;
+
+\ Insert string a2/n2 into string a1/n1 at position n3
+\ Return the resulting string in a1/n3 and the remainder of
+\ the line after the insertion in a3/n4
+
+\ : insert                        ( a1 n1 a2 n2 n3 -- a1 n3 a3 n4)
+\   -rot 2dup 2>r                 ( a1 n1 n3 a2 n2)
+\   nip spread                    ( a1 n3 a3 n2)
+\   over 2r>                      ( a1 n3 a3 n2 a3 a2 n2)
+\   rot swap cmove chars +        ( a1 n3 a4)
+\   >r 2dup chars + r@ -          ( a1 n3 n4)
+\   r> swap
+\ ;
+[THEN]
+
 : replace                       ( a1 n1 a2 n2 a3 n3 -- a1 n4 a4 n5 f)
   2>r delete dup 2r> rot >r 2>r
   if
@@ -939,6 +963,12 @@ create conjugations
 : no-answer? -trailing dup 0= ;        ( a n -- a n' f)
 : >asciiz 2dup chars + 0 swap c! ;     ( a n -- a n)
 : s@ @c count ;                        ( a1 -- a2 n1) 
+
+\ En SwiftForth no está definida +place
+[UNDEFINED] +place [IF]
+: +place
+  2dup >r >r dup c@ 1+ + swap move r> r> dup c@ rot + swap c! ;
+[THEN]
                                        \ corrects the YOU-ME conjugation
 : correct-me?                          ( a n -- a n')
   -trailing s"  I" ends?               \ does it end with "I"?

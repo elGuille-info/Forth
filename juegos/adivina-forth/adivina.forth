@@ -15,7 +15,13 @@ include Forth-programming-language\juegos\adivina-forth\adivina.forth
 marker adivina.forth
 
 \ Adivinar un número
-: VERSION-ADIVINA   ." *** Adivina Forth v1.277 (21-ene-2023 14.27) *** " ;
+: VERSION-ADIVINA   ." *** Adivina Forth v1.278 (22-ene-2023 08.25) *** " ;
+
+\ v1.278 (22-ene-2023 08.25)
+\   Ahora en SwiftForth no acepta los paths relativos.
+\       Pongo comprobación de si es gForth cargar las utilidades de una forma u otra.
+\   Pruebo con ayuda-forth a usar tildes y la eñe.
+\       Solo salen bien si se escriben desde la consola.
 
 \ v1.277 (21-ene-2023 14.27)
 \   En util.forth dejo las definiciones anteriores de random, etc.
@@ -91,8 +97,12 @@ marker adivina.forth
 \ Cargar las palabras definidas en util.forth, 17-ene-2023 17.48
 \ include util.forth
 \ Usar las definidas en la carpeta del directorio de github, 20-ene-2023 08.05 
-include ..\..\util-forth\util.forth
+\ en swiftForth no acepta el path relativo
 
+s" gforth" environment?
+[IF] 2drop include ..\..\util-forth\util.forth
+[ELSE] include Forth-programming-language\util-forth\util.forth
+[THEN]
 
 \ **************************************
 \ * Las definiciones propias del juego *
