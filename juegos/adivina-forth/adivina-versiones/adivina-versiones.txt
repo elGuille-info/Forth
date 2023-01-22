@@ -1,6 +1,12 @@
 Los cambios en el programa
 ===========================
 
+\ v1.278 (22-ene-2023 08.25)
+\   Ahora en SwiftForth no acepta los paths relativos.
+\       Pongo comprobación de si es gForth cargar las utilidades de una forma u otra.
+\   Pruebo con ayuda-forth a usar tildes y la eñe.
+\       Solo salen bien si se escriben desde la consola.
+
 \ v1.277 (21-ene-2023 14.27)
 \   En util.forth dejo las definiciones anteriores de random, etc.
 
